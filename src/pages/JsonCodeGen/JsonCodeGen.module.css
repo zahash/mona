@@ -1,0 +1,41 @@
+.JsonCodeGen {
+    background-color: var(--dark);
+    color: var(--light);
+
+    font-size: 1.5em;
+
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* flex-shrink: 0; */
+}
+
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 1%;
+}
+
+.LangSelect {
+    cursor: pointer;
+    font-size: large;
+}
+
+.GenerateBtn {
+    cursor: pointer;
+    font-size: large;
+}
+
+.Main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.TextArea {
+    width: 100%;
+
+    background-color: var(--dark);
+    color: var(--light);
+}
