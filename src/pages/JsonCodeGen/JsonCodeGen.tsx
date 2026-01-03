@@ -1,27 +1,25 @@
-import { Component, onMount } from "solid-js";
+import { Component } from "solid-js";
 import { Title } from "@solidjs/meta";
 
-import init, { codegen, Lang } from '@/lib/jsoncodegen/jsoncodegen_web';
+import { runPlugin } from './jsoncodegen-wasm32-wasip1';
 
 import styles from './JsonCodeGen.module.css';
 
 const JsonCodeGen: Component = () => {
-    onMount(async () => await init());
-
     let langSelectRef: HTMLSelectElement;
     let jsonInputRef: HTMLTextAreaElement;
     let codeOutputRef: HTMLTextAreaElement;
 
     const onClick = () => {
-        const lang = Lang[langSelectRef.value as keyof typeof Lang];
+        const lang = langSelectRef.value;
         const json = jsonInputRef.value;
 
-        try {
-            codeOutputRef.value = codegen(json, lang);
-        } catch (e) {
-            codeOutputRef.value = `Error: ${e}`;
-            console.error(e);
-        }
+        runPlugin(`https://zahash.github.io/jsoncodegen-${lang}-wasm32-wasip1.wasm`, json)
+            .then((stdout) => codeOutputRef.value = stdout)
+            .catch((e) => {
+                codeOutputRef.value = e.message;
+                console.error(e);
+            });        
     }
 
     return <>
@@ -32,8 +30,8 @@ const JsonCodeGen: Component = () => {
                 <div>
                     <label for="lang-select">Language: </label>
                     <select ref={ele => langSelectRef = ele} id="lang-select" class={styles.LangSelect}>
-                        <option value="Java">Java</option>
-                        <option value="Rust">Rust</option>
+                        <option value="java">Java</option>
+                        <option value="rust">Rust</option>
                     </select>
                     <button onClick={onClick} class={styles.GenerateBtn}>Generate</button>
                 </div>
