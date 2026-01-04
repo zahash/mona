@@ -1,6 +1,7 @@
 import { Component } from "solid-js";
 import { Title } from "@solidjs/meta";
 
+import debounce from "@/lib/debounce";
 import { PluginManager } from "./jsoncodegen-wasm32-wasip1";
 
 import styles from "./JsonCodeGen.module.css";
@@ -10,7 +11,7 @@ const JsonCodeGen: Component = () => {
     let jsonInputRef: HTMLTextAreaElement;
     let codeOutputRef: HTMLTextAreaElement;
 
-    const onClick = () => {
+    const codegen = () => {
         const lang = langSelectRef.value;
         const json = jsonInputRef.value;
 
@@ -43,20 +44,19 @@ const JsonCodeGen: Component = () => {
                         <select
                             ref={(ele) => (langSelectRef = ele)}
                             id="lang-select"
+                            onchange={codegen}
                             class={styles.LangSelect}
                         >
                             <option value="java">Java</option>
                             <option value="rust">Rust</option>
                         </select>
-                        <button onClick={onClick} class={styles.GenerateBtn}>
-                            Generate
-                        </button>
                     </div>
                 </div>
 
                 <div class={styles.Main}>
                     <textarea
                         ref={(ele) => (jsonInputRef = ele)}
+                        oninput={debounce(codegen, 300)}
                         class={styles.TextArea}
                         placeholder="Paste your JSON here"
                         spellcheck={false}

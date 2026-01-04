@@ -23,11 +23,6 @@
     font-size: large;
 }
 
-.GenerateBtn {
-    cursor: pointer;
-    font-size: large;
-}
-
 .Main {
     display: flex;
     flex-grow: 1;
