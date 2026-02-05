@@ -28,15 +28,48 @@ members = [
     "token",
     "validation",
     "wasm",
+
+    
+    "cli",
+    "codegen-java",
+    "codegen-rust",
+    "core",
+    "iota",
+    "telemetry",
+    "test-macro",
+    "test-utils",
+    "utils",
+    "wasm-serve",
 ]
 
-[profile.release]
-lto = true
-codegen-units = 1
+[workspace.package]
+version = "0.8.0"
+edition = "2024"
+repository = "https://github.com/zahash/mona/"
+license = "Apache-2.0"
+authors = ["zahash <zahash.z@gmail.com>"]
 
-[profile.web]
-inherits = "release"
-opt-level = "z"     # Optimize for size
+[profile.release]
 lto = true          # Enable Link Time Optimization (LTO)
 codegen-units = 1   # Forces the compiler to use a single code generation unit to improve optimizations
+strip = true        # Strips symbols
+
+[profile.wasm]
+inherits = "release"
+opt-level = "z"     # Optimize for size
 panic = "abort"     # Remove panic support, reducing code size
+
+[profile.cli]
+inherits = "release"
+opt-level = "z"
+
+# on Debian, /tmp dir might not have sufficient space.
+# df -h                                   # check available space
+# sudo mount -o remount,size=10G /tmp     # resize /tmp to have 10G
+
+# cargo build -p jsoncodegen-cli --profile cli
+# cargo build -p jsoncodegen-{lang} --profile wasm --target wasm32-wasip1
+
+# run JS polyfill tests
+# cargo run --bin wasm-serve target/wasm32-wasip1/wasm/*.wasm --port 7357
+# npm test

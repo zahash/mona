@@ -1,9 +1,16 @@
-.vscode/
-.idea/
-
 .env
 
+pkg/
 dist/
-node_modules/
 
+# rust
 target/
+Cargo.lock
+
+# node
+node_modules/
+package-lock.json
+
+# editors
+.vscode/
+.idea/
