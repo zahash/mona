@@ -1,0 +1,3 @@
+[package]
+name = "validation"
+edition = "2024"

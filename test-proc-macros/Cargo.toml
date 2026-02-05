@@ -1,0 +1,21 @@
+[package]
+name = "test-proc-macros"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "2"
+quote = "1"
+
+email = { path = "../email", optional = true }
+validation = { path = "../validation", optional = true }
+
+[features]
+email = ["dep:email"]
+password = ["dep:validation"]
+username = ["dep:validation"]
+
+[dev-dependencies]
+syn = { version = "2", features = ["extra-traits"] }

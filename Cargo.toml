@@ -1,0 +1,42 @@
+# have multiple microservices
+# - zahashi vault (include PKI (public key infrastructure), secrets management)
+# - oblivious (zero-knowledge server)
+# - api gateway with service registry (similar to dns records)
+
+# - auth management
+
+
+[workspace]
+resolver = "3"
+members = [
+    "auth",
+    "cache",
+    "client-ip",
+    "compiletime",
+    "contextual",
+    "dashcache",
+    "data-access",
+    "email",
+    "extra",
+    "gateway",
+    "middleware",
+    "oblivious",
+    "seed",
+    "signature",
+    "tag",
+    "test-proc-macros",
+    "token",
+    "validation",
+    "wasm",
+]
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[profile.web]
+inherits = "release"
+opt-level = "z"     # Optimize for size
+lto = true          # Enable Link Time Optimization (LTO)
+codegen-units = 1   # Forces the compiler to use a single code generation unit to improve optimizations
+panic = "abort"     # Remove panic support, reducing code size

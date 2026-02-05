@@ -1,0 +1,11 @@
+[package]
+name = "cache"
+edition = "2024"
+
+[dependencies]
+dashmap = "6.1"
+thiserror = "2"
+tracing = { version = "0.1", optional = true }
+
+[features]
+tracing = ["dep:tracing"]

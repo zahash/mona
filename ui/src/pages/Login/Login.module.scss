@@ -1,0 +1,67 @@
+.container {
+    background: var(--dark-gradient);
+
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+.backlink {
+    color: var(--secondary-light);
+    font-weight: bold;
+}
+
+.form {
+
+    padding: 2.5rem 1rem;
+
+    >* {
+        margin: 0 auto;
+        max-width: 30rem;
+    }
+
+    hr {
+        margin: 1rem auto;
+    }
+
+    .form-title {
+        color: var(--primary-light);
+    }
+
+    .signup {
+        padding: 1rem;
+        color: var(--secondary-light);
+
+        a {
+            color: var(--primary-light);
+            font-weight: bold;
+        }
+    }
+
+    .form-field {
+        padding: 0.5rem 0;
+
+        label {
+            font-weight: 600;
+            color: var(--secondary-light);
+        }
+
+        input {
+            padding: 0.5rem;
+            width: 100%;
+
+            border-radius: 0.5rem;
+            border-width: 0.1rem;
+            border-style: none;
+        }
+    }
+
+    button[type="submit"] {
+        display: block;
+        font-weight: bold;
+        padding: 0.5rem;
+        width: 100%;
+
+        border-style: none;
+        border-radius: 0.5rem;
+    }
+}

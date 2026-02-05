@@ -1,0 +1,12 @@
+[package]
+name = "dashcache"
+edition = "2024"
+
+[dependencies]
+dashmap = "6.1"
+tracing = { version = "0.1", optional = true }
+
+cache = { path = "../cache" }
+
+[features]
+tracing = ["dep:tracing", "cache/tracing"]

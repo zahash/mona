@@ -1,0 +1,18 @@
+[package]
+name = "compiletime"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = "2"
+quote = "1"
+
+regex = { version = "1", optional = true }
+
+[features]
+regex = ["dep:regex"]
+
+[dev-dependencies]
+syn = { version = "2", features = ["extra-traits"] }
