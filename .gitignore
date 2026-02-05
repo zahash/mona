@@ -5,6 +5,7 @@ dist/
 
 # rust
 target/
+Cargo.lock
 
 # node
 node_modules/
