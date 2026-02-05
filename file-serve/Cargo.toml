@@ -1,5 +1,5 @@
 [package]
-name = "wasm-serve"
+name = "file-serve"
 version.workspace = true
 edition.workspace = true
 repository.workspace = true
