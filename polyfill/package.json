@@ -1,7 +1,4 @@
 {
     "name": "@jsoncodegen/polyfill",
-    "private": true,
-    "devDependencies": {
-        "@types/node": "~25.0"
-    }
+    "private": true
 }

@@ -70,6 +70,6 @@ opt-level = "z"
 # cargo build -p jsoncodegen-cli --profile cli
 # cargo build -p jsoncodegen-{lang} --profile wasm --target wasm32-wasip1
 
-# run JS polyfill tests
+# run JS polyfill tests. list of wasm files served by the wasm-server is listed at "/"
 # cargo run --bin wasm-serve target/wasm32-wasip1/wasm/*.wasm --port 7357
 # npm test
