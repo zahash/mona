@@ -30,19 +30,19 @@ tracing-subscriber = { version = "0.3", optional = true }
 utoipa = { version = "5.4.0", optional = true }
 zeroize = "1"
 
-client-ip = { path = "../client-ip", optional = true }
-contextual = { path = "../contextual" }
-email = { path = "../email", features = ["serde", "sqlite"] }
-extra = { path = "../extra", features = ["error-kind", "error-response"] }
-middleware = { path = "../middleware", features = ["leaked-5xx"] }
-signature = { path = "../signature", optional = true }
-token = { path = "../token" }
-validation = { path = "../validation" }
+client-ip = { path = "../../shared/client-ip", optional = true }
+contextual = { path = "../../shared/contextual" }
+email = { path = "../../shared/email", features = ["serde", "sqlite"] }
+extra = { path = "../../shared/extra", features = ["error-kind", "error-response"] }
+middleware = { path = "../../shared/middleware", features = ["leaked-5xx"] }
+signature = { path = "../../shared/signature", optional = true }
+token = { path = "../../shared/token" }
+validation = { path = "../../shared/validation" }
 
 [dev-dependencies]
 serde_json = "1"
 tempfile = "3"
-test-proc-macros = { path = "../test-proc-macros", features = [
+test-proc-macros = { path = "../../shared/test-proc-macros", features = [
     "email",
     "password",
     "username",
