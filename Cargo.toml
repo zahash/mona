@@ -9,11 +9,11 @@
 [workspace]
 resolver = "3"
 members = [
+    "auth/server",
     "file-serve",
     "gateway",
     "oblivious",
 
-    "fullstack/auth",
     "shared/cache",
     "shared/client-ip",
     "shared/compiletime",
@@ -30,7 +30,6 @@ members = [
     "shared/token",
     "shared/validation",
     "shared/wasm",
-
     
     "jsoncodegen/cli",
     "jsoncodegen/java",
