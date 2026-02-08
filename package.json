@@ -1,20 +1,16 @@
 {
-    "name": "jsoncodegen",
-    "version": "0.7.4",
-    "description": "json code generation",
+    "name": "@zahash/mona",
+    "description": "mono repo workspace",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/zahash/jsoncodegen.git"
+        "url": "git+https://github.com/zahash/mona.git"
     },
-    "license": "MIT",
+    "license": "Apache-2.0",
     "author": "zahash <zahash.z@gmail.com>",
-    "scripts": {
-        "test": "node --test"
-    },
     "private": true,
     "workspaces": [
         "jsoncodegen/polyfill",
-        "fullstack/ui"
+        "fullstack/auth-ui"
     ],
     "devDependencies": {
         "@types/node": "^25.2.0",

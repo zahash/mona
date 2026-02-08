@@ -1,7 +1,6 @@
 {
-  "name": "ui",
+  "name": "@zahash/auth",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,9 +13,7 @@
     "solid-js": "^1.9.5"
   },
   "devDependencies": {
-    "@types/node": "^22.15.21",
     "sass": "^1.91.0",
-    "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-solid": "^2.11.6"
   }

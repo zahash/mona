@@ -1,4 +1,8 @@
 {
-    "name": "@jsoncodegen/polyfill",
-    "private": true
+    "name": "@zahash/jsoncodegen.polyfill",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node --test"
+    }
 }
