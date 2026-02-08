@@ -1,0 +1,10 @@
+{
+  "type": "io.nats.jetstream.advisory.v1.max_deliver",
+  "id": "EgGS1FReM5Yy1I7L9UXs4W",
+  "timestamp": "2023-12-24T14:38:13.107632319Z",
+  "stream": "MYSTREAM",
+  "consumer": "MYSTREAM_CONSUMER",
+  "stream_seq": 6,
+  "deliveries": 4,
+  "domain": "ngs"
+}

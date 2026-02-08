@@ -1,0 +1,32 @@
+{
+  "data": {
+    "metrics": [
+      {
+        "name": "HKQuantityTypeIdentifierStepCount",
+        "units": "count",
+        "data": [
+          {
+            "qty": 1250,
+            "date": "2024-01-15 08:00:00 -0500",
+            "source": "John's iPhone"
+          },
+          {
+            "qty": 3400,
+            "date": "2024-01-15 12:00:00 -0500",
+            "source": "John's Apple Watch"
+          }
+        ]
+      },
+      {
+        "name": "HKQuantityTypeIdentifierHeartRate",
+        "units": "count/min",
+        "data": [
+          {
+            "qty": 72,
+            "date": "2024-01-15 08:15:00 -0500"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "_id": {
+      "$oid": "65a5e1a0b3c4d5e6f7a8b9c0"
+    },
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "genre": "Science Fiction",
+    "publication_year": 1979,
+    "pages": 193,
+    "is_available": true,
+    "tags": ["fiction", "humor", "classic"],
+    "reviews": [
+      {
+        "user": "Alice",
+        "rating": 5,
+        "comment": "A brilliant and hilarious read!"
+      },
+      {
+        "user": "Bob",
+        "rating": 4,
+        "comment": "Very clever, but a bit absurd at times."
+      }
+    ],
+    "last_updated": {
+      "$date": "2024-01-15T12:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65a5e1a0b3c4d5e6f7a8b9c1"
+    },
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "genre": "Romance",
+    "publication_year": 1813,
+    "pages": 279,
+    "is_available": false,
+    "tags": ["classic", "romance", "novel"],
+    "reviews": [
+      {
+        "user": "Charlie",
+        "rating": 5,
+        "comment": "A timeless masterpiece."
+      }
+    ],
+    "last_updated": {
+      "$date": "2024-01-14T18:30:00.000Z"
+    }
+  }
+]

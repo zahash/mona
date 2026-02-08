@@ -1,0 +1,18 @@
+{
+  "sys": {
+    "type": "Entry",
+    "id": "entry_123",
+    "space": { "sys": { "type": "Link", "linkType": "Space", "id": "space_abc" } },
+    "createdAt": "2024-01-01T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z",
+    "revision": 5,
+    "contentType": { "sys": { "type": "Link", "linkType": "ContentType", "id": "blogPost" } }
+  },
+  "fields": {
+    "title": { "en-US": "My First Blog Post" },
+    "slug": { "en-US": "my-first-blog-post" },
+    "body": { "en-US": "This is the content of my blog post..." },
+    "author": { "en-US": { "sys": { "type": "Link", "linkType": "Entry", "id": "author_456" } } },
+    "tags": { "en-US": ["tech", "coding"] }
+  }
+}

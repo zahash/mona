@@ -1,0 +1,85 @@
+{
+  "id": 7890123456789,
+  "title": "Innovative Wireless Charger",
+  "body_html": "<strong>Fast charging</strong> for all your devices.",
+  "vendor": "TechGadgets",
+  "product_type": "Electronics",
+  "created_at": "2024-01-10T14:00:00-05:00",
+  "handle": "innovative-wireless-charger",
+  "updated_at": "2024-01-15T12:00:00-05:00",
+  "published_at": "2024-01-11T09:00:00-05:00",
+  "template_suffix": null,
+  "status": "active",
+  "published_scope": "global",
+  "tags": "wireless, charger, tech",
+  "admin_graphql_api_id": "gid://shopify/Product/7890123456789",
+  "variants": [
+    {
+      "id": 1234567890123,
+      "product_id": 7890123456789,
+      "title": "Default Title",
+      "price": "49.99",
+      "sku": "CHG-WRLS-001",
+      "position": 1,
+      "inventory_policy": "deny",
+      "compare_at_price": "59.99",
+      "fulfillment_service": "manual",
+      "inventory_management": "shopify",
+      "option1": "Default Title",
+      "option2": null,
+      "option3": null,
+      "created_at": "2024-01-10T14:00:00-05:00",
+      "updated_at": "2024-01-15T12:00:00-05:00",
+      "taxable": true,
+      "barcode": "123456789012",
+      "grams": 250,
+      "image_id": null,
+      "weight": 0.25,
+      "weight_unit": "kg",
+      "inventory_item_id": 9876543210987,
+      "inventory_quantity": 100,
+      "old_inventory_quantity": 100,
+      "requires_shipping": true,
+      "admin_graphql_api_id": "gid://shopify/ProductVariant/1234567890123"
+    }
+  ],
+  "options": [
+    {
+      "id": 1122334455667,
+      "product_id": 7890123456789,
+      "name": "Title",
+      "position": 1,
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "id": 5566778899001,
+      "product_id": 7890123456789,
+      "position": 1,
+      "created_at": "2024-01-10T14:00:05-05:00",
+      "updated_at": "2024-01-10T14:00:05-05:00",
+      "alt": "Wireless Charger Front View",
+      "width": 1024,
+      "height": 1024,
+      "src": "https://cdn.shopify.com/s/files/1/0000/0000/products/charger.jpg?v=1704913205",
+      "variant_ids": [],
+      "admin_graphql_api_id": "gid://shopify/ProductImage/5566778899001"
+    }
+  ],
+  "image": {
+    "id": 5566778899001,
+    "product_id": 7890123456789,
+    "position": 1,
+    "created_at": "2024-01-10T14:00:05-05:00",
+    "updated_at": "2024-01-10T14:00:05-05:00",
+    "alt": "Wireless Charger Front View",
+    "width": 1024,
+    "height": 1024,
+    "src": "https://cdn.shopify.com/s/files/1/0000/0000/products/charger.jpg?v=1704913205",
+    "variant_ids": [],
+    "admin_graphql_api_id": "gid://shopify/ProductImage/5566778899001"
+  }
+}

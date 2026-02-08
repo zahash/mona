@@ -1,0 +1,42 @@
+{
+  "entity_id": "light.living_room_lamp",
+  "state": "on",
+  "attributes": {
+    "min_mireds": 153,
+    "max_mireds": 500,
+    "supported_color_modes": [
+      "color_temp",
+      "hs"
+    ],
+    "color_mode": "hs",
+    "brightness": 128,
+    "hs_color": [
+      240,
+      100
+    ],
+    "rgb_color": [
+      0,
+      0,
+      255
+    ],
+    "xy_color": [
+      0.135,
+      0.039
+    ],
+    "effect_list": [
+      "colorloop",
+      "random",
+      "candle"
+    ],
+    "effect": "none",
+    "friendly_name": "Living Room Lamp",
+    "supported_features": 63
+  },
+  "last_changed": "2026-02-08T03:45:00.123456+00:00",
+  "last_updated": "2026-02-08T03:46:30.789012+00:00",
+  "context": {
+    "id": "example_context_id",
+    "parent_id": null,
+    "user_id": null
+  }
+}

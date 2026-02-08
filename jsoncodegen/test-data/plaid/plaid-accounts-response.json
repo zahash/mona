@@ -1,0 +1,61 @@
+{
+  "accounts": [
+    {
+      "account_id": "BxBXx6zMDpSKq8PgaMy8U55pXq3zQxCnE4V3z",
+      "balances": {
+        "available": 1000.00,
+        "current": 1200.00,
+        "iso_currency_code": "USD",
+        "limit": null,
+        "unofficial_currency_code": null
+      },
+      "mask": "0000",
+      "name": "Plaid Checking",
+      "official_name": "Plaid Gold Standard 0% Interest Checking",
+      "subtype": "checking",
+      "type": "depository"
+    },
+    {
+      "account_id": "yyYYy6zMDpSKq8PgaMy8U55pXq3zQxCnE4V3z",
+      "balances": {
+        "available": 20000.00,
+        "current": 25000.00,
+        "iso_currency_code": "USD",
+        "limit": null,
+        "unofficial_currency_code": null
+      },
+      "mask": "1111",
+      "name": "Plaid Savings",
+      "official_name": "Plaid Gold Standard Savings",
+      "subtype": "savings",
+      "type": "depository"
+    },
+    {
+      "account_id": "zzZZz6zMDpSKq8PgaMy8U55pXq3zQxCnE4V3z",
+      "balances": {
+        "available": null,
+        "current": 4500.00,
+        "iso_currency_code": "USD",
+        "limit": 5000.00,
+        "unofficial_currency_code": null
+      },
+      "mask": "2222",
+      "name": "Plaid Credit Card",
+      "official_name": "Plaid Diamond Rewards Visa",
+      "subtype": "credit card",
+      "type": "credit"
+    }
+  ],
+  "item": {
+    "item_id": "some_item_id_12345",
+    "institution_id": "ins_109508",
+    "webhook": "https://www.genericwebhookurl.com/webhook",
+    "error": null,
+    "consented_transactions": null,
+    "update_type": "background",
+    "billed_products": ["transactions"],
+    "available_products": ["auth", "transactions", "balance"],
+    "products": ["auth", "transactions", "balance"]
+  },
+  "request_id": "45Q123456789"
+}

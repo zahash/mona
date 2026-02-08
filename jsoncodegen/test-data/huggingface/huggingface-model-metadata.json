@@ -1,0 +1,33 @@
+{
+  "model_name": "bert-base-uncased",
+  "author": "Google",
+  "repo_link": "https://huggingface.co/bert-base-uncased",
+  "image_url": "https://cdn-media.huggingface.co/model-images/bert-base-uncased.png",
+  "category": "Text Classification",
+  "tags": [
+    "transformers",
+    "bert",
+    "text-classification",
+    "english"
+  ],
+  "license": "Apache-2.0",
+  "datasets": [
+    "bookcorpus",
+    "wikipedia"
+  ],
+  "metrics": [
+    {
+      "name": "accuracy",
+      "value": 0.89
+    },
+    {
+      "name": "f1",
+      "value": 0.88
+    }
+  ],
+  "base_model": null,
+  "description": "BERT (Bidirectional Encoder Representations from Transformers) is a pre-training method for natural language processing (NLP) developed by Google.",
+  "last_updated": "2023-10-26T14:30:00Z",
+  "downloads": 15000000,
+  "stars": 45000
+}
