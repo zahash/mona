@@ -1,0 +1,40 @@
+{
+  "kind": "Event",
+  "apiVersion": "audit.k8s.io/v1",
+  "level": "RequestResponse",
+  "auditID": "9c1c4f1e-8e5e-4c7b-b3f5-09e8b1d2c3d4",
+  "stage": "ResponseComplete",
+  "requestURI": "/api/v1/namespaces/default/pods/nginx-pod",
+  "verb": "create",
+  "user": {
+    "username": "admin",
+    "groups": ["system:masters", "system:authenticated"]
+  },
+  "sourceIPs": ["192.168.1.100"],
+  "userAgent": "kubectl/v1.28.0 (linux/amd64) kubernetes/9859e42",
+  "objectRef": {
+    "resource": "pods",
+    "namespace": "default",
+    "name": "nginx-pod",
+    "apiVersion": "v1"
+  },
+  "responseStatus": {
+    "metadata": {},
+    "code": 201
+  },
+  "requestObject": {
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "nginx-pod",
+      "labels": { "app": "nginx" }
+    },
+    "spec": {
+      "containers": [{ "name": "nginx", "image": "nginx:latest" }]
+    }
+  },
+  "annotations": {
+    "authorization.k8s.io/decision": "allow",
+    "authorization.k8s.io/reason": ""
+  }
+}

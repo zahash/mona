@@ -1,0 +1,23 @@
+image: node:18
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Build and Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm test
+      - step:
+          name: Deploy to Production
+          deployment: production
+          script:
+            - npm run build
+            - ./deploy-prod.sh
+    feature/*:
+      - step:
+          name: Lint
+          script:
+            - npm run lint

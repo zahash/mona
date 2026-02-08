@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    environment {
+        DEPLOY_ENV = 'production'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/example/repo.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Deploy') {
+            when { branch 'main' }
+            steps {
+                sh './deploy.sh ${DEPLOY_ENV}'
+            }
+        }
+    }
+    post {
+        failure {
+            mail to: 'admin@example.com', subject: 'Build Failed'
+        }
+    }
+}

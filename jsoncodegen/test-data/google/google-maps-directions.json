@@ -1,0 +1,24 @@
+{
+  "geocoded_waypoints": [{ "geocoder_status": "OK", "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4" }],
+  "routes": [{
+    "summary": "M4",
+    "legs": [{
+      "steps": [{
+        "travel_mode": "DRIVING",
+        "start_location": { "lat": 51.5033, "lng": -0.1195 },
+        "end_location": { "lat": 51.5035, "lng": -0.1200 },
+        "polyline": { "points": "a~_1Aglj@..." },
+        "duration": { "value": 60, "text": "1 min" },
+        "html_instructions": "Head <b>west</b> on <b>Bridge St</b>",
+        "distance": { "value": 100, "text": "0.1 km" }
+      }],
+      "duration": { "value": 3600, "text": "1 hour" },
+      "distance": { "value": 50000, "text": "50 km" },
+      "start_address": "London, UK",
+      "end_address": "Reading, UK"
+    }],
+    "overview_polyline": { "points": "u~_1A..." },
+    "bounds": { "northeast": { "lat": 51.5, "lng": -0.1 }, "southwest": { "lat": 51.4, "lng": -0.9 } }
+  }],
+  "status": "OK"
+}

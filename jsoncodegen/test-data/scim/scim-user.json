@@ -1,0 +1,25 @@
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+  "id": "2819c223-7f76-453a-919d-413861904646",
+  "externalId": "bjensen",
+  "userName": "bjensen@example.com",
+  "name": {
+    "formatted": "Ms. Barbara J Jensen, III",
+    "familyName": "Jensen",
+    "givenName": "Barbara"
+  },
+  "emails": [
+    { "value": "bjensen@example.com", "type": "work", "primary": true },
+    { "value": "babs@jensen.org", "type": "home" }
+  ],
+  "groups": [
+    { "value": "e9e30dba-f08f-4109-8486-d5c6a331660a", "display": "Tour Guides" }
+  ],
+  "active": true,
+  "meta": {
+    "resourceType": "User",
+    "created": "2011-08-01T18:29:49.793Z",
+    "lastModified": "2011-08-01T18:29:49.793Z",
+    "location": "https://example.com/v2/Users/2819c223..."
+  }
+}
