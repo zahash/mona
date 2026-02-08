@@ -28,10 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{
-  "username": "testuser",
-  "email": "test@example.com"
-}",
+					"raw": "{\"username\": \"testuser\", \"email\": \"test@example.com\"}",
 					"options": { "raw": { "language": "json" } }
 				},
 				"url": {
