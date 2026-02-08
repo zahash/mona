@@ -9,6 +9,10 @@
 [workspace]
 resolver = "3"
 members = [
+    "file-serve",
+    "gateway",
+    "oblivious",
+
     "fullstack/auth",
     "shared/cache",
     "shared/client-ip",
@@ -18,9 +22,7 @@ members = [
     "shared/data-access",
     "shared/email",
     "shared/extra",
-    "gateway",
     "shared/middleware",
-    "oblivious",
     "shared/seed",
     "shared/signature",
     "shared/tag",
@@ -34,7 +36,6 @@ members = [
     "jsoncodegen/java",
     "jsoncodegen/rust",
     "jsoncodegen/core",
-    "shared/file-serve",
     "shared/iota",
     "jsoncodegen/telemetry",
     "jsoncodegen/test-macro",
