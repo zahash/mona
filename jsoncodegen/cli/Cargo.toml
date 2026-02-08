@@ -21,4 +21,4 @@ wasmtime = { version = "40", default-features = false, features = [
 ] }
 wasmtime-wasi = { version = "40", default-features = false, features = ["p1"] }
 
-jsoncodegen-utils = { path = "../utils" }
+jsoncodegen-utils = { path = "../../shared/utils" }
