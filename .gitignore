@@ -3,6 +3,8 @@
 pkg/
 dist/
 
+.DS_Store/
+
 # rust
 target/
 Cargo.lock
