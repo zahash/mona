@@ -1,0 +1,18 @@
+[package]
+name = "error-response"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+utoipa = { workspace = true, optional = true }
+serde = { workspace = true, features = ["derive"] }
+time = { workspace = true, optional = true }
+
+[features]
+datetime = ["dep:time"]
+help = []
+kind = []
+openapi = ["dep:utoipa", "utoipa/time"]

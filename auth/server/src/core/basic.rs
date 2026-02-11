@@ -3,9 +3,11 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use base64::{Engine, prelude::BASE64_STANDARD};
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 
-use crate::core::Credentials;
+use crate::{HELP, core::Credentials};
 
 pub struct Basic {
     pub username: String,
@@ -60,20 +62,20 @@ pub enum BasicAuthorizationExtractionError {
     InvalidBasicFormat,
 }
 
-impl extra::ErrorKind for BasicAuthorizationExtractionError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for BasicAuthorizationExtractionError {
+    fn kind(&self) -> String {
         match self {
             BasicAuthorizationExtractionError::NonUTF8HeaderValue => {
-                "auth.basic.authorization-header.non-utf8"
+                "auth.basic.authorization-header.non-utf8".into()
             }
             BasicAuthorizationExtractionError::Base64Decode => {
-                "auth.basic.authorization-header.base64-decode"
+                "auth.basic.authorization-header.base64-decode".into()
             }
             BasicAuthorizationExtractionError::NonUTF8Credentials => {
-                "auth.basic.authorization-header.credentials.non-utf8"
+                "auth.basic.authorization-header.credentials.non-utf8".into()
             }
             BasicAuthorizationExtractionError::InvalidBasicFormat => {
-                "auth.basic.authorization-header.invalid-format"
+                "auth.basic.authorization-header.invalid-format".into()
             }
         }
     }
@@ -88,9 +90,14 @@ impl IntoResponse for BasicAuthorizationExtractionError {
             | BasicAuthorizationExtractionError::Base64Decode => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
+
                 (
                     StatusCode::BAD_REQUEST,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }

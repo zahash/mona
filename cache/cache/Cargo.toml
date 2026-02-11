@@ -1,0 +1,11 @@
+[package]
+name = "cache"
+edition = "2024"
+
+[dependencies]
+dashmap = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true, optional = true }
+
+[features]
+tracing = ["dep:tracing"]

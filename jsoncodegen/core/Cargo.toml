@@ -9,9 +9,9 @@ authors.workspace = true
 publish = false
 
 [dependencies]
-serde_json = "1"
+serde_json = { workspace = true, features = ["std"] }
 
-jsoncodegen-iota = { path = "../../shared/iota" }
+iota = { workspace = true }
 
 [dev-dependencies]
-pretty_assertions = { version = "1" }
+pretty_assertions = { workspace = true, features = ["std"] }

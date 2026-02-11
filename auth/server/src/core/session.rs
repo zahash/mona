@@ -5,11 +5,16 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use cookie::{Cookie, SameSite, time::Duration};
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::{StatusCode, header::COOKIE};
 use time::OffsetDateTime;
 use token::Token;
 
-use crate::core::{Credentials, Permission, Verified, permission::Authorizable};
+use crate::{
+    HELP,
+    core::{Credentials, Permission, Verified, permission::Authorizable},
+};
 
 const SESSION_ID: &str = "session_id";
 
@@ -184,10 +189,10 @@ impl Deref for SessionId {
     }
 }
 
-impl extra::ErrorKind for SessionValidationError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for SessionValidationError {
+    fn kind(&self) -> String {
         match self {
-            SessionValidationError::SessionExpired => "auth.session.expired",
+            SessionValidationError::SessionExpired => "auth.session.expired".into(),
         }
     }
 }
@@ -198,9 +203,14 @@ impl IntoResponse for SessionValidationError {
             SessionValidationError::SessionExpired => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
+
                 (
                     StatusCode::UNAUTHORIZED,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }
@@ -208,10 +218,12 @@ impl IntoResponse for SessionValidationError {
     }
 }
 
-impl extra::ErrorKind for SessionCookieExtractionError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for SessionCookieExtractionError {
+    fn kind(&self) -> String {
         match self {
-            SessionCookieExtractionError::Base64Decode => "auth.session.cookie.base64-decode",
+            SessionCookieExtractionError::Base64Decode => {
+                "auth.session.cookie.base64-decode".into()
+            }
         }
     }
 }
@@ -222,9 +234,14 @@ impl IntoResponse for SessionCookieExtractionError {
             SessionCookieExtractionError::Base64Decode => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
+
                 (
                     StatusCode::BAD_REQUEST,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }

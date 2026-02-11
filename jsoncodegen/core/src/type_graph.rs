@@ -162,7 +162,7 @@ use std::{
     fmt::Display,
 };
 
-use jsoncodegen_iota::Iota;
+use iota::Iota;
 use serde_json::Value;
 
 use crate::{

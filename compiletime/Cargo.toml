@@ -1,0 +1,18 @@
+[package]
+name = "compiletime"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { workspace = true, features = ["proc-macro"] }
+quote = { workspace = true, features = ["proc-macro"] }
+
+regex = { workspace = true, optional = true }
+
+[features]
+regex = ["dep:regex"]
+
+[dev-dependencies]
+syn = { workspace = true, features = ["extra-traits", "proc-macro"] }

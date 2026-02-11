@@ -7,11 +7,12 @@ use axum::{
 };
 use contextual::Context;
 use email::Email;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use serde::Deserialize;
 use validation::{validate_password, validate_username};
 
-use crate::{AppState, core::assign_permission_group};
+use crate::{AppState, HELP, core::assign_permission_group};
 
 pub const PATH: &str = "/signup";
 
@@ -210,16 +211,16 @@ pub async fn handler(
     Ok(StatusCode::CREATED)
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
-            Error::InvalidUsername(_) => "username.invalid",
-            Error::InvalidEmailFormat(_) => "email.invalid",
-            Error::WeakPassword(_) => "password.weak",
-            Error::UsernameExists(_) => "username.exists",
-            Error::EmailExists(_) => "email.exists",
-            Error::Sqlx(_) => "sqlx",
-            Error::Bcrypt(_) => "bcrypt",
+            Error::InvalidUsername(_) => "username.invalid".into(),
+            Error::InvalidEmailFormat(_) => "email.invalid".into(),
+            Error::WeakPassword(_) => "password.weak".into(),
+            Error::UsernameExists(_) => "username.exists".into(),
+            Error::EmailExists(_) => "email.exists".into(),
+            Error::Sqlx(_) => "sqlx".into(),
+            Error::Bcrypt(_) => "bcrypt".into(),
         }
     }
 }
@@ -231,13 +232,29 @@ impl IntoResponse for Error {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::BAD_REQUEST, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::BAD_REQUEST,
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
+                )
+                    .into_response()
             }
             Error::UsernameExists(_) | Error::EmailExists(_) => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::CONFLICT, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::CONFLICT,
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
+                )
+                    .into_response()
             }
             Error::Sqlx(_) | Error::Bcrypt(_) => {
                 #[cfg(feature = "tracing")]

@@ -97,13 +97,21 @@ pub enum SendVerificationEmailError {
 }
 
 #[cfg(feature = "smtp")]
-impl extra::ErrorKind for SendVerificationEmailError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for SendVerificationEmailError {
+    fn kind(&self) -> String {
         match self {
-            SendVerificationEmailError::SmtpSenders(_) => "email.verification.smtp-senders",
-            SendVerificationEmailError::EmailTemplate(_) => "email.verification.email-template",
-            SendVerificationEmailError::EmailContent(_) => "email.verification.email-content",
-            SendVerificationEmailError::SmtpTransport(_) => "email.verification.smtp-transport",
+            SendVerificationEmailError::SmtpSenders(_) => {
+                "email.verification.smtp-senders".to_string()
+            }
+            SendVerificationEmailError::EmailTemplate(_) => {
+                "email.verification.email-template".to_string()
+            }
+            SendVerificationEmailError::EmailContent(_) => {
+                "email.verification.email-content".to_string()
+            }
+            SendVerificationEmailError::SmtpTransport(_) => {
+                "email.verification.smtp-transport".to_string()
+            }
         }
     }
 }

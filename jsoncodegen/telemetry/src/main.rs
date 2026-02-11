@@ -2,12 +2,12 @@ use std::{net::SocketAddr, path::PathBuf};
 
 use axum::{Router, routing::post};
 use clap::Parser;
-use jsoncodegen_utils::default_runtime_dir;
 use tracing_subscriber::EnvFilter;
+use utils::app_data_dir;
 
 #[derive(Parser, Debug)]
 struct Args {
-    #[arg(long, env("JSONCODEGEN_RUNTIME"), default_value_os_t = default_runtime_dir())]
+    #[arg(long, env("JSONCODEGEN_RUNTIME"), default_value_os_t = app_data_dir("jsoncodegen"))]
     runtime_dir: PathBuf,
 
     #[arg(short, long, default_value_t = 0)]

@@ -13,12 +13,12 @@ name = "jcg"
 path = "src/main.rs"
 
 [dependencies]
-clap = { version = "4", features = ["derive", "env"] }
-reqwest = { version = "0.13", features = ["blocking", "json"] }
-serde = { version = "1", features = ["derive"] }
-wasmtime = { version = "40", default-features = false, features = [
+clap = { workspace = true, features = ["derive", "env", "std"] }
+reqwest = { workspace = true, features = ["blocking", "json"] }
+serde = { workspace = true, features = ["derive", "std"] }
+wasmtime = { workspace = true, default-features = false, features = [
     "cranelift",
 ] }
-wasmtime-wasi = { version = "40", default-features = false, features = ["p1"] }
+wasmtime-wasi = { workspace = true, default-features = false, features = ["p1"] }
 
-jsoncodegen-utils = { path = "../../shared/utils" }
+utils = { workspace = true }

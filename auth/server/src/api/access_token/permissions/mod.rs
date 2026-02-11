@@ -8,12 +8,13 @@ use axum::{
     routing::{MethodRouter, get},
 };
 use contextual::Context;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 use serde::Deserialize;
 
 use crate::{
-    AppState,
+    AppState, HELP,
     core::{
         AccessTokenInfo, AccessTokenValidationError, Authorizable, InsufficientPermissionsError,
         Permission, Principal,
@@ -94,13 +95,13 @@ pub enum Error {
     Sqlx(#[from] contextual::Error<sqlx::Error>),
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
             Error::InsufficientPermissions(e) => e.kind(),
-            Error::NotFound => "access-token.not-found",
+            Error::NotFound => "access-token.not-found".into(),
             Error::AccessTokenValidation(e) => e.kind(),
-            Error::Sqlx(_) => "sqlx",
+            Error::Sqlx(_) => "sqlx".into(),
         }
     }
 }
@@ -113,7 +114,15 @@ impl IntoResponse for Error {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::NOT_FOUND, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::NOT_FOUND,
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
+                )
+                    .into_response()
             }
             Error::AccessTokenValidation(_err) => todo!(),
             Error::Sqlx(_err) => {

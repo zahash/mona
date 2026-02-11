@@ -10,7 +10,8 @@ use axum_extra::extract::Host;
 use axum_macros::debug_handler;
 use contextual::Context;
 use email::Email;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 use serde::Deserialize;
 
@@ -124,15 +125,15 @@ pub enum Error {
     Sqlx(#[from] contextual::Error<sqlx::Error>),
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
-            Error::InvalidEmailFormat(_) => "email.invalid",
-            Error::UnAssociatedEmail(_) => "email.unassociated",
-            Error::TokenEncodeError(_) => "email.verification.token.encode",
-            Error::SendVerificationEmail(_) => "email.verification.send",
-            Error::Io(_) => "email.verification.io",
-            Error::Sqlx(_) => "email.verification.sqlx",
+            Error::InvalidEmailFormat(_) => "email.invalid".to_string(),
+            Error::UnAssociatedEmail(_) => "email.unassociated".to_string(),
+            Error::TokenEncodeError(_) => "email.verification.token.encode".to_string(),
+            Error::SendVerificationEmail(_) => "email.verification.send".to_string(),
+            Error::Io(_) => "email.verification.io".to_string(),
+            Error::Sqlx(_) => "email.verification.sqlx".to_string(),
         }
     }
 }
@@ -144,13 +145,21 @@ impl IntoResponse for Error {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::BAD_REQUEST, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::BAD_REQUEST,
+                    Json(ErrorResponse::new(self.to_string()).with_kind(self.kind())),
+                )
+                    .into_response()
             }
             Error::UnAssociatedEmail(_) => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::NOT_FOUND, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::NOT_FOUND,
+                    Json(ErrorResponse::new(self.to_string()).with_kind(self.kind())),
+                )
+                    .into_response()
             }
             Error::SendVerificationEmail(err) => err.into_response(),
             Error::TokenEncodeError(_) | Error::Io(_) | Error::Sqlx(_) => {

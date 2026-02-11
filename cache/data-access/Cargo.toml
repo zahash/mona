@@ -1,0 +1,12 @@
+[package]
+name = "data-access"
+edition = "2024"
+
+[dependencies]
+sqlx = { workspace = true, features = ["sqlite", "time"] }
+thiserror = { workspace = true }
+
+cache = { workspace = true }
+
+[features]
+tracing = ["cache/tracing"]

@@ -6,11 +6,11 @@ edition = "2024"
 proc-macro = true
 
 [dependencies]
-syn = "2"
-quote = "1"
+syn = { workspace = true, features = ["proc-macro"] }
+quote = { workspace = true, features = ["proc-macro"] }
 
-email = { path = "../email", optional = true }
-validation = { path = "../validation", optional = true }
+email = { workspace = true, optional = true }
+validation = { workspace = true, optional = true }
 
 [features]
 email = ["dep:email"]
@@ -18,4 +18,4 @@ password = ["dep:validation"]
 username = ["dep:validation"]
 
 [dev-dependencies]
-syn = { version = "2", features = ["extra-traits"] }
+syn = { workspace = true, features = ["extra-traits", "proc-macro"] }

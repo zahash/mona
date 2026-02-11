@@ -4,11 +4,16 @@ use axum::{
     Json,
     response::{IntoResponse, Response},
 };
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 use time::OffsetDateTime;
 use token::Token;
 
-use crate::core::{Credentials, Permission, Verified, permission::Authorizable};
+use crate::{
+    HELP,
+    core::{Credentials, Permission, Verified, permission::Authorizable},
+};
 
 pub struct AccessToken(Token<32>);
 
@@ -171,10 +176,10 @@ impl From<Token<32>> for AccessToken {
     }
 }
 
-impl extra::ErrorKind for AccessTokenValidationError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for AccessTokenValidationError {
+    fn kind(&self) -> String {
         match self {
-            AccessTokenValidationError::AccessTokenExpired => "auth.access-token.expired",
+            AccessTokenValidationError::AccessTokenExpired => "auth.access-token.expired".into(),
         }
     }
 }
@@ -187,7 +192,11 @@ impl IntoResponse for AccessTokenValidationError {
                 tracing::info!("{:?}", self);
                 (
                     StatusCode::UNAUTHORIZED,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }
@@ -195,14 +204,14 @@ impl IntoResponse for AccessTokenValidationError {
     }
 }
 
-impl extra::ErrorKind for AccessTokenAuthorizationExtractionError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for AccessTokenAuthorizationExtractionError {
+    fn kind(&self) -> String {
         match self {
             AccessTokenAuthorizationExtractionError::NonUTF8HeaderValue => {
-                "auth.access-token.authorization-header.non-utf8"
+                "auth.access-token.authorization-header.non-utf8".into()
             }
             AccessTokenAuthorizationExtractionError::Base64Decode => {
-                "auth.access-token.authorization-header.base64-decode"
+                "auth.access-token.authorization-header.base64-decode".into()
             }
         }
     }
@@ -215,9 +224,14 @@ impl IntoResponse for AccessTokenAuthorizationExtractionError {
             | AccessTokenAuthorizationExtractionError::Base64Decode => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
+
                 (
                     StatusCode::BAD_REQUEST,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }

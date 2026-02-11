@@ -72,7 +72,7 @@ Then setup the database as described.
 This creates the database specified in your DATABASE_URL and runs any pending migrations.
 
 ```sh
-sqlx database setup --source fullstack/auth/migrations
+sqlx database setup --source auth/server/migrations
 ```
 
 ### WASM (Rust → JS)

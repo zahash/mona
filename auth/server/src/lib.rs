@@ -19,6 +19,8 @@ use tower_http::request_id::{MakeRequestUuid, PropagateRequestIdLayer, SetReques
 
 use crate::secrets::Secrets;
 
+const HELP: &str = "Please check the response headers for `x-trace-id`, include the datetime and raise a support ticket.";
+
 #[derive(Debug)]
 pub struct ServerOpts {
     pub database: DatabaseConfig,
@@ -130,14 +132,14 @@ pub async fn router(opts: ServerOpts) -> Result<Router, ServerError> {
     #[cfg(feature = "tracing")]
     let middleware = middleware
         .layer(tower_http::trace::TraceLayer::new_for_http().make_span_with(span::span))
-        .layer(from_fn(middleware::latency_ms));
+        .layer(from_fn(axum_middleware::latency_ms));
 
-    let middleware = middleware.layer(from_fn(middleware::handle_leaked_5xx));
+    let middleware = middleware.layer(from_fn(axum_middleware::handle_leaked_5xx));
 
     #[cfg(feature = "rate-limit")]
     let middleware = middleware.layer(axum::middleware::from_fn_with_state(
         std::sync::Arc::new(opts.rate_limiter.into()),
-        middleware::rate_limiter,
+        axum_middleware::rate_limiter,
     ));
 
     let router = router.layer(middleware);
@@ -216,7 +218,7 @@ impl DatabaseConfig {
 }
 
 #[cfg(feature = "rate-limit")]
-impl From<RateLimiterConfig> for middleware::RateLimiter {
+impl From<RateLimiterConfig> for axum_middleware::RateLimiter {
     fn from(config: RateLimiterConfig) -> Self {
         Self::new(config.limit, config.interval)
     }

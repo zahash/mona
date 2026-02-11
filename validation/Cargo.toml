@@ -1,0 +1,12 @@
+[package]
+name = "validation"
+edition = "2024"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+wasm-bindgen = { workspace = true, optional = true }
+
+[features]
+wasm = ["dep:wasm-bindgen"]

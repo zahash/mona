@@ -1,18 +1,18 @@
 use clap::{Parser, Subcommand};
-use jsoncodegen_utils::default_runtime_dir;
 use std::{
     error::Error,
     fs::{self, File},
     io::Write,
     path::PathBuf,
 };
+use utils::app_data_dir;
 use wasmtime::{Engine, Linker, Module, Store};
 use wasmtime_wasi::WasiCtxBuilder;
 
 #[derive(Parser, Debug)]
 #[command(about = "JSON code generator")]
 struct Args {
-    #[arg(long, env("JSONCODEGEN_RUNTIME"), default_value_os_t = default_runtime_dir())]
+    #[arg(long, env("JSONCODEGEN_RUNTIME"), default_value_os_t = app_data_dir("jsoncodegen"))]
     runtime_dir: PathBuf,
 
     #[command(subcommand)]

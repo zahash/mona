@@ -6,10 +6,11 @@ use axum::{
     routing::{MethodRouter, get},
 };
 use contextual::Context;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 
 use crate::{
-    AppState,
+    AppState, HELP,
     core::{
         AccessToken, AccessTokenAuthorizationExtractionError, AccessTokenValidationError,
         Credentials,
@@ -82,14 +83,16 @@ pub enum Error {
     Sqlx(#[from] contextual::Error<sqlx::Error>),
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
             Error::AccessTokenAuthorizationExtractionError(err) => err.kind(),
-            Error::AccessTokenHeaderNotFound => "auth.access-token.authorization-header.not-found",
-            Error::UnAssociatedAccessToken => "auth.access-token.unassociated",
+            Error::AccessTokenHeaderNotFound => {
+                "auth.access-token.authorization-header.not-found".into()
+            }
+            Error::UnAssociatedAccessToken => "auth.access-token.unassociated".into(),
             Error::AccessTokenValidation(err) => err.kind(),
-            Error::Sqlx(_) => "auth.access-token.sqlx",
+            Error::Sqlx(_) => "auth.access-token.sqlx".into(),
         }
     }
 }
@@ -102,7 +105,15 @@ impl IntoResponse for Error {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::UNAUTHORIZED, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::UNAUTHORIZED,
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
+                )
+                    .into_response()
             }
             Error::AccessTokenValidation(err) => err.into_response(),
             Error::Sqlx(_err) => {

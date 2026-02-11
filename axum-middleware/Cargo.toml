@@ -1,0 +1,15 @@
+[package]
+name = "axum-middleware"
+edition = "2024"
+
+[dependencies]
+axum = { workspace = true, optional = true }
+dashmap = { workspace = true, optional = true }
+tracing = { workspace = true, optional = true }
+
+client-ip = { workspace = true, optional = true }
+
+[features]
+latency = ["dep:axum", "dep:tracing"]
+leaked-5xx = ["dep:axum", "dep:tracing"]
+rate-limit = ["dep:axum", "dep:client-ip", "dep:dashmap", "dep:tracing"]

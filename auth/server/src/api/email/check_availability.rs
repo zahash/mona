@@ -7,10 +7,11 @@ use axum::{
 };
 use contextual::Context;
 use email::Email;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use serde::Deserialize;
 
-use crate::AppState;
+use crate::{AppState, HELP};
 
 pub const PATH: &str = "/check/email-availability";
 
@@ -64,11 +65,11 @@ pub enum Error {
     Sqlx(#[from] contextual::Error<sqlx::Error>),
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
-            Error::InvalidParams(_) => "email.invalid",
-            Error::Sqlx(_) => "sqlx",
+            Error::InvalidParams(_) => "email.invalid".into(),
+            Error::Sqlx(_) => "sqlx".into(),
         }
     }
 }
@@ -80,7 +81,15 @@ impl IntoResponse for Error {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
 
-                (StatusCode::BAD_REQUEST, Json(ErrorResponse::from(self))).into_response()
+                (
+                    StatusCode::BAD_REQUEST,
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
+                )
+                    .into_response()
             }
             Error::Sqlx(_err) => {
                 #[cfg(feature = "tracing")]

@@ -3,46 +3,47 @@ name = "auth"
 edition = "2024"
 
 [dependencies]
-axum = "0.8"
-axum-extra = { version = "0.12", features = ["cookie"] }
-axum-macros = "0.5"
-base64 = "0.22"
-bcrypt = "0.17"
-clap = { version = "4", features = ["derive", "env"] }
-cookie = "0.18"
-dotenvy = { version = "0.15", optional = true }
-lettre = { version = "0.11", default-features = false, optional = true }
-dashmap = "6.1"
-forwarded-header-value = { version = "0.1.1", optional = true }
-http = "1"
-rand = "0.9"
-serde = { version = "1", features = ["derive"] }
-sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite", "time", "tls-rustls"] }
-sysinfo = { version = "0.37", features = ["serde"] }
-tera = { version = "1", optional = true }
-thiserror = "2"
-time = "0.3"
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-tower = "0.5"
-tower-http = { version = "0.6", features = ["fs", "request-id", "trace"] }
-tracing = { version = "0.1", optional = true }
-tracing-subscriber = { version = "0.3", optional = true }
-utoipa = { version = "5.4.0", optional = true }
-zeroize = "1"
+axum = { workspace = true, features = ["json", "tokio", "http1", "http2", "form", "query"] }
+axum-extra = { workspace = true, features = ["cookie"] }
+axum-macros = { workspace = true }
+base64 = { workspace = true, features = ["std"] }
+bcrypt = { workspace = true, features = ["std"] }
+clap = { workspace = true, features = ["derive", "env", "std"] }
+cookie = { workspace = true }
+dotenvy = { workspace = true, optional = true }
+lettre = { workspace = true, optional = true }
+dashmap = { workspace = true }
+forwarded-header-value = { workspace = true, optional = true }
+http = { workspace = true }
+rand = { workspace = true, features = ["thread_rng"] }
+serde = { workspace = true, features = ["derive", "std"] }
+sqlx = { workspace = true, features = ["runtime-tokio", "sqlite", "time", "tls-rustls", "macros", "migrate"] }
+sysinfo = { workspace = true, features = ["serde", "disk", "system"] }
+tera = { workspace = true, optional = true }
+thiserror = { workspace = true, features = ["std"] }
+time = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tower = { workspace = true }
+tower-http = { workspace = true, features = ["fs", "request-id", "trace"] }
+tracing = { workspace = true, optional = true }
+tracing-subscriber = { workspace = true, optional = true }
+utoipa = { workspace = true, optional = true, features = ["macros"] }
+zeroize = { workspace = true }
 
-client-ip = { path = "../../shared/client-ip", optional = true }
-contextual = { path = "../../shared/contextual" }
-email = { path = "../../shared/email", features = ["serde", "sqlite"] }
-extra = { path = "../../shared/extra", features = ["error-kind", "error-response"] }
-middleware = { path = "../../shared/middleware", features = ["leaked-5xx"] }
-signature = { path = "../../shared/signature", optional = true }
-token = { path = "../../shared/token" }
-validation = { path = "../../shared/validation" }
+client-ip = { workspace = true, optional = true }
+contextual = { workspace = true }
+email = { workspace = true, features = ["serde", "sqlite"] }
+error-kind = { workspace = true }
+error-response = { workspace = true, features = ["datetime", "kind", "help"] }
+axum-middleware = { workspace = true, features = ["leaked-5xx"] }
+signature = { workspace = true, optional = true }
+token = { workspace = true }
+validation = { workspace = true }
 
 [dev-dependencies]
-serde_json = "1"
-tempfile = "3"
-test-proc-macros = { path = "../../shared/test-proc-macros", features = [
+serde_json = { workspace = true, features = ["std"] }
+tempfile = { workspace = true }
+test-proc-macros = { workspace = true, features = [
     "email",
     "password",
     "username",
@@ -51,9 +52,9 @@ test-proc-macros = { path = "../../shared/test-proc-macros", features = [
 [features]
 await-tasks = []
 client-ip = ["dep:client-ip"]
-openapi = ["dep:utoipa", "extra/openapi"]
+openapi = ["dep:utoipa", "error-response/openapi"]
 profiles = ["dep:dotenvy"]
-rate-limit = ["middleware/rate-limit"]
+rate-limit = ["axum-middleware/rate-limit"]
 serve-dir = []
 smtp = [
     "dep:lettre",
@@ -66,7 +67,7 @@ smtp = [
     "lettre/tracing",
 ]
 smtp--no-tls = []
-tracing = ["dep:tracing", "middleware/latency", "tracing-subscriber/env-filter"]
+tracing = ["dep:tracing", "axum-middleware/latency", "tracing-subscriber/env-filter", "tracing-subscriber/fmt", "tracing-subscriber/std"]
 
 all = [
     "client-ip",

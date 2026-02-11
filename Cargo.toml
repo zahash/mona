@@ -1,45 +1,48 @@
-# have multiple microservices
-# - zahashi vault (include PKI (public key infrastructure), secrets management)
-# - oblivious (zero-knowledge server)
-# - api gateway with service registry (similar to dns records)
-
-# - auth management
-
-
 [workspace]
 resolver = "3"
 members = [
     "auth/server",
-    "file-serve",
-    "gateway",
-    "oblivious",
+    "axum-middleware",
 
-    "shared/cache",
-    "shared/client-ip",
-    "shared/compiletime",
-    "shared/contextual",
-    "shared/dashcache",
-    "shared/data-access",
-    "shared/email",
-    "shared/extra",
-    "shared/middleware",
-    "shared/seed",
-    "shared/signature",
-    "shared/tag",
-    "shared/test-proc-macros",
-    "shared/token",
-    "shared/validation",
-    "shared/wasm",
-    
+    "cache/cache",
+    "cache/dashcache",
+    "cache/data-access",
+    "cache/tag",
+
+    "client-ip",
+    "compiletime",
+    "contextual",
+
+    "email",
+    "error-kind",
+    "error-response",
+
+    "file-serve",
+
+    "gateway",
+
+    "iota",
+
     "jsoncodegen/cli",
+    "jsoncodegen/telemetry",
+
     "jsoncodegen/java",
     "jsoncodegen/rust",
     "jsoncodegen/core",
-    "shared/iota",
-    "jsoncodegen/telemetry",
     "jsoncodegen/test-macro",
     "jsoncodegen/test-utils",
-    "shared/utils",
+
+    "oblivious",
+
+    "seed",
+    "signature",
+
+    "token",
+
+    "utils",
+    "validation",
+
+    "shared/test-proc-macros",
 ]
 
 [workspace.package]
@@ -48,6 +51,82 @@ edition = "2024"
 repository = "https://github.com/zahash/mona/"
 license = "Apache-2.0"
 authors = ["zahash <zahash.z@gmail.com>"]
+
+[workspace.dependencies]
+axum = { version = "0.8", default-features = false }
+axum-extra = { version = "0.12", default-features = false }
+axum-macros = { version = "0.5", default-features = false }
+base64 = { version = "0.22", default-features = false }
+bcrypt = { version = "0.17", default-features = false }
+clap = { version = "4", default-features = false }
+convert_case = { version = "0.10", default-features = false }
+cookie = { version = "0.18", default-features = false }
+dashmap = { version = "6.1", default-features = false }
+dotenvy = { version = "0.15", default-features = false }
+forwarded-header-value = { version = "0.1.1", default-features = false }
+glob = { version = "0.3", default-features = false }
+hmac = { version = "0.12", default-features = false }
+http = { version = "1", default-features = false }
+jose-jwk = { version = "0.1", default-features = false }
+lettre = { version = "0.11", default-features = false }
+matchit = { version = "0.9", default-features = false }
+pretty_assertions = { version = "1", default-features = false }
+proc-macro2 = { version = "1", default-features = false }
+quote = { version = "1", default-features = false }
+rand = { version = "0.9", default-features = false }
+regex = { version = "1", default-features = false }
+reqwest = { version = "0.13", default-features = false }
+serde = { version = "1", default-features = false }
+serde_json = { version = "1", default-features = false }
+sha2 = { version = "0.10", default-features = false }
+sqlx = { version = "0.8", default-features = false }
+syn = { version = "2", default-features = false }
+sysinfo = { version = "0.37", default-features = false }
+tempfile = { version = "3", default-features = false }
+tera = { version = "1", default-features = false }
+thiserror = { version = "2", default-features = false }
+time = { version = "0.3", default-features = false }
+tokio = { version = "1", default-features = false }
+tower = { version = "0.5", default-features = false }
+tower-http = { version = "0.6", default-features = false }
+tracing = { version = "0.1", default-features = false }
+tracing-subscriber = { version = "0.3", default-features = false }
+unicode-general-category = { version = "1", default-features = false }
+utoipa = { version = "5.4.0", default-features = false }
+wasm-bindgen = { version = "0.2", default-features = false }
+wasmtime = { version = "40", default-features = false }
+wasmtime-wasi = { version = "40", default-features = false }
+zeroize = { version = "1", default-features = false }
+
+auth = { path = "auth/server" }
+axum-middleware = { path = "axum-middleware" }
+cache = { path = "cache/cache" }
+dashcache = { path = "cache/dashcache" }
+data-access = { path = "cache/data-access" }
+tag = { path = "cache/tag" }
+client-ip = { path = "client-ip" }
+compiletime = { path = "compiletime" }
+contextual = { path = "contextual" }
+email = { path = "email" }
+error-kind = { path = "error-kind" }
+error-response = { path = "error-response" }
+file-serve = { path = "file-serve" }
+gateway = { path = "gateway" }
+iota = { path = "iota" }
+jsoncodegen-cli = { path = "jsoncodegen/cli" }
+jsoncodegen-telemetry = { path = "jsoncodegen/telemetry" }
+jsoncodegen-java = { path = "jsoncodegen/java" }
+jsoncodegen-rust = { path = "jsoncodegen/rust" }
+jsoncodegen = { path = "jsoncodegen/core" }
+jsoncodegen-test-macro = { path = "jsoncodegen/test-macro" }
+jsoncodegen-test-utils = { path = "jsoncodegen/test-utils" }
+oblivious = { path = "oblivious" }
+seed = { path = "seed" }
+signature = { path = "signature" }
+token = { path = "token" }
+utils = { path = "utils" }
+test-proc-macros = { path = "shared/test-proc-macros" }
+validation = { path = "validation" }
 
 [profile.release]
 lto = true          # Enable Link Time Optimization (LTO)

@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-axum = "0.8"
-matchit = "0.9"
-thiserror = "2"
+axum = { workspace = true }
+matchit = { workspace = true }
+thiserror = { workspace = true }

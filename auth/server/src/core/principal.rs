@@ -6,13 +6,18 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use contextual::Context;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::{HeaderMap, StatusCode, request::Parts};
 
-use crate::core::{
-    AccessToken, AccessTokenAuthorizationExtractionError, AccessTokenInfo,
-    AccessTokenValidationError, Basic, BasicAuthorizationExtractionError, Credentials,
-    InsufficientPermissionsError, Permission, SessionCookieExtractionError, SessionId, SessionInfo,
-    SessionValidationError, UserInfo, Verified, permission::Authorizable,
+use crate::{
+    HELP,
+    core::{
+        AccessToken, AccessTokenAuthorizationExtractionError, AccessTokenInfo,
+        AccessTokenValidationError, Basic, BasicAuthorizationExtractionError, Credentials,
+        InsufficientPermissionsError, Permission, SessionCookieExtractionError, SessionId,
+        SessionInfo, SessionValidationError, UserInfo, Verified, permission::Authorizable,
+    },
 };
 
 pub enum Principal {
@@ -164,21 +169,21 @@ where
     }
 }
 
-impl extra::ErrorKind for PrincipalError {
-    fn kind(&self) -> &'static str {
+impl error_kind::ErrorKind for PrincipalError {
+    fn kind(&self) -> String {
         match self {
-            PrincipalError::UnAssociatedAccessToken => "auth.access-token.unassociated",
-            PrincipalError::UnAssociatedSessionId => "auth.session.id.unassociated",
-            PrincipalError::InvalidBasicCredentials => "auth.basic.invalid-credentials",
-            PrincipalError::NoCredentialsProvided => "auth.no-credentials",
-            PrincipalError::UsernameNotFound(_) => "auth.basic.username.not-found",
+            PrincipalError::UnAssociatedAccessToken => "auth.access-token.unassociated".into(),
+            PrincipalError::UnAssociatedSessionId => "auth.session.id.unassociated".into(),
+            PrincipalError::InvalidBasicCredentials => "auth.basic.invalid-credentials".into(),
+            PrincipalError::NoCredentialsProvided => "auth.no-credentials".into(),
+            PrincipalError::UsernameNotFound(_) => "auth.basic.username.not-found".into(),
             PrincipalError::AccessTokenAuthorizationExtraction(err) => err.kind(),
             PrincipalError::BasicAuthorizationExtraction(err) => err.kind(),
             PrincipalError::SessionCookieExtraction(err) => err.kind(),
             PrincipalError::AccessTokenValidation(err) => err.kind(),
             PrincipalError::SessionIdValidation(err) => err.kind(),
-            PrincipalError::Sqlx(_) => "auth.sqlx",
-            PrincipalError::Bcrypt(_) => "auth.bcrypt",
+            PrincipalError::Sqlx(_) => "auth.sqlx".into(),
+            PrincipalError::Bcrypt(_) => "auth.bcrypt".into(),
         }
     }
 }
@@ -193,9 +198,14 @@ impl IntoResponse for PrincipalError {
             | PrincipalError::UsernameNotFound(_) => {
                 #[cfg(feature = "tracing")]
                 tracing::info!("{:?}", self);
+
                 (
                     StatusCode::UNAUTHORIZED,
-                    Json(extra::ErrorResponse::from(self)),
+                    Json(
+                        ErrorResponse::new(self.to_string())
+                            .with_kind(self.kind())
+                            .with_help(HELP.into()),
+                    ),
                 )
                     .into_response()
             }

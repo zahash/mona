@@ -7,7 +7,8 @@ use axum::{
 use axum_macros::debug_handler;
 use contextual::Context;
 use email::Email;
-use extra::ErrorResponse;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 use serde::Deserialize;
 
@@ -78,13 +79,13 @@ pub enum Error {
     Sqlx(#[from] contextual::Error<sqlx::Error>),
 }
 
-impl extra::ErrorKind for Error {
-    fn kind(&self) -> &'static str {
+impl ErrorKind for Error {
+    fn kind(&self) -> String {
         match self {
-            Error::TokenDecode(_) => "token.decode",
-            Error::TemporalTokenValidity(_) => "token.validity",
-            Error::Io(_) => "io",
-            Error::Sqlx(_) => "sqlx",
+            Error::TokenDecode(_) => "token.decode".to_string(),
+            Error::TemporalTokenValidity(_) => "token.validity".to_string(),
+            Error::Io(_) => "io".to_string(),
+            Error::Sqlx(_) => "sqlx".to_string(),
         }
     }
 }
@@ -99,10 +100,10 @@ impl IntoResponse for Error {
 
                     (
                         StatusCode::BAD_REQUEST,
-                        Json(ErrorResponse::new(
-                            decode_error.to_string(),
-                            "email.invalid",
-                        )),
+                        Json(
+                            ErrorResponse::new(decode_error.to_string())
+                                .with_kind("email.invalid".to_string()),
+                        ),
                     )
                         .into_response()
                 }
@@ -116,10 +117,10 @@ impl IntoResponse for Error {
 
                     (
                         StatusCode::BAD_REQUEST,
-                        Json(ErrorResponse::new(
-                            "Invalid Verification Token",
-                            "token.invalid",
-                        )),
+                        Json(
+                            ErrorResponse::new("Invalid Verification Token".to_string())
+                                .with_kind("token.invalid".to_string()),
+                        ),
                     )
                         .into_response()
                 }
@@ -136,10 +137,10 @@ impl IntoResponse for Error {
 
                 (
                     StatusCode::BAD_REQUEST,
-                    Json(ErrorResponse::new(
-                        err.to_string(),
-                        "token.temporal.invalid",
-                    )),
+                    Json(
+                        ErrorResponse::new(err.to_string())
+                            .with_kind("token.temporal.invalid".to_string()),
+                    ),
                 )
                     .into_response()
             }

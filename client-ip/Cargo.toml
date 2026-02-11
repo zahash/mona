@@ -1,0 +1,11 @@
+[package]
+name = "client-ip"
+edition = "2024"
+
+[dependencies]
+axum = { workspace = true, optional = true }
+http = { workspace = true }
+forwarded-header-value = { workspace = true }
+
+[features]
+axum = ["dep:axum"]

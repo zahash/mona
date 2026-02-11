@@ -130,8 +130,8 @@ pub fn method_router() -> MethodRouter<AppState> {
     operation_id = PATH,
     responses(
         (status = 200, description = "System Information", body = Info),
-        (status = 401, description = "Invalid credentials", body = extra::ErrorResponse),
-        (status = 403, description = "Insufficient permissions", body = extra::ErrorResponse),
+        (status = 401, description = "Invalid credentials", body = error_response::ErrorResponse),
+        (status = 403, description = "Insufficient permissions", body = error_response::ErrorResponse),
         (status = 500, description = "Internal server error"),
     ),
     tag = "probe"

@@ -3,8 +3,12 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use contextual::Context;
+use error_kind::ErrorKind;
+use error_response::ErrorResponse;
 use http::StatusCode;
 use serde::Serialize;
+
+use crate::HELP;
 
 #[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
 #[derive(Debug, Clone, Serialize)]
@@ -62,9 +66,9 @@ pub trait Authorizable {
 #[error("insufficient permissions")]
 pub struct InsufficientPermissionsError;
 
-impl extra::ErrorKind for InsufficientPermissionsError {
-    fn kind(&self) -> &'static str {
-        "auth.permissions"
+impl error_kind::ErrorKind for InsufficientPermissionsError {
+    fn kind(&self) -> String {
+        "auth.permissions".into()
     }
 }
 
@@ -75,7 +79,11 @@ impl IntoResponse for InsufficientPermissionsError {
 
         (
             StatusCode::FORBIDDEN,
-            Json(extra::ErrorResponse::from(self)),
+            Json(
+                ErrorResponse::new(self.to_string())
+                    .with_kind(self.kind())
+                    .with_help(HELP.into()),
+            ),
         )
             .into_response()
     }

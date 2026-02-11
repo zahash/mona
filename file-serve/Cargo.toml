@@ -8,9 +8,9 @@ authors.workspace = true
 publish = false
 
 [dependencies]
-axum = "0.8"
-clap = { version = "4", features = ["derive"] }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
-tower-http = { version = "0.6", features = ["fs", "trace"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+axum = { workspace = true, features = ["json", "tokio", "http1", "http2"] }
+clap = { workspace = true, features = ["derive"] }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tower-http = { workspace = true, features = ["fs", "trace"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt", "std"] }

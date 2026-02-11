@@ -44,7 +44,7 @@ pub fn method_router() -> MethodRouter<AppState> {
     ),
     responses(
         (status = 200, description = "Access token generated successfully", body = String),
-        (status = 403, description = "Insufficient permissions", body = extra::ErrorResponse),
+        (status = 403, description = "Insufficient permissions", body = error_response::ErrorResponse),
         (status = 500, description = "Internal server error"),
     ),
     tag = "access_token"
