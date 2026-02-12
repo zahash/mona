@@ -26,11 +26,17 @@
 .Main {
     display: flex;
     flex-grow: 1;
+    overflow: hidden;
 }
 
-.TextArea {
-    width: 100%;
+.EditorContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
-    background-color: var(--dark);
-    color: var(--light);
+/* Ensure CodeMirror fills the container */
+.EditorContainer :global(.cm-editor) {
+    height: 100%;
 }

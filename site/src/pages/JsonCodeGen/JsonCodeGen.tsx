@@ -1,19 +1,35 @@
-import { Component } from "solid-js";
+import { Component, onMount, onCleanup } from "solid-js";
 import { Title } from "@solidjs/meta";
 
 import debounce from "@/lib/debounce";
 import { PluginManager } from "./jsoncodegen-wasm32-wasip1";
 
 import styles from "./JsonCodeGen.module.css";
+import { EditorView } from "codemirror";
+import { Compartment } from "@codemirror/state";
+import { LanguageSupport } from "@codemirror/language";
+
+const languageLoaders: Record<string, () => Promise<LanguageSupport>> = {
+    json: () => import("@codemirror/lang-json").then((m) => m.json()),
+    rust: () => import("@codemirror/lang-rust").then((m) => m.rust()),
+    java: () => import("@codemirror/lang-java").then((m) => m.java()),
+};
 
 const JsonCodeGen: Component = () => {
+    let jsonInputRef: HTMLDivElement;
+    let codeOutputRef: HTMLDivElement;
     let langSelectRef: HTMLSelectElement;
-    let jsonInputRef: HTMLTextAreaElement;
-    let codeOutputRef: HTMLTextAreaElement;
 
-    const codegen = () => {
+    let inputView: EditorView | undefined;
+    let outputView: EditorView | undefined;
+
+    let langCompartment = new Compartment();
+
+    const codegen = async () => {
+        if (!inputView || !outputView) return;
+
         const lang = langSelectRef.value;
-        const json = jsonInputRef.value;
+        const json = inputView.state.doc.toString();
 
         /**
          * PATH RESOLUTION STRATEGY:
@@ -33,13 +49,102 @@ const JsonCodeGen: Component = () => {
          */
         const url = `/jsoncodegen-${lang}-wasm32-wasip1.wasm`;
 
-        PluginManager.get(url)
-            .then((plugin) => (codeOutputRef.value = plugin.run(json)))
-            .catch((e) => {
-                console.error(e);
-                codeOutputRef.value = e.message;
+        try {
+            const plugin = await PluginManager.get(url);
+            const result = plugin.run(json);
+
+            outputView.dispatch({
+                changes: {
+                    from: 0,
+                    to: outputView.state.doc.length,
+                    insert: result,
+                },
             });
+        } catch (e: any) {
+            console.error(e);
+            outputView.dispatch({
+                changes: {
+                    from: 0,
+                    to: outputView.state.doc.length,
+                    insert: e.message,
+                },
+            });
+        }
     };
+
+    const debouncedCodegen = debounce(codegen, 300);
+
+    const updateOutputLanguage = async () => {
+        if (!outputView) return;
+        const lang = langSelectRef.value;
+        const extension = await languageLoaders[lang]();
+        outputView.dispatch({
+            effects: langCompartment.reconfigure(extension),
+        });
+    };
+
+    onMount(async () => {
+        // Lazy load all CodeMirror dependencies in parallel
+        const [
+            { EditorView, keymap },
+            { EditorState, Compartment },
+            { defaultKeymap, history, historyKeymap },
+            { oneDark },
+            jsonLang,
+        ] = await Promise.all([
+            import("@codemirror/view"),
+            import("@codemirror/state"),
+            import("@codemirror/commands"),
+            import("@codemirror/theme-one-dark"),
+            languageLoaders.json(),
+        ]);
+
+        inputView = new EditorView({
+            state: EditorState.create({
+                doc: "",
+                extensions: [
+                    oneDark,
+                    history(),
+                    keymap.of([...defaultKeymap, ...historyKeymap]),
+                    jsonLang,
+                    EditorView.updateListener.of((update: any) => {
+                        if (update.docChanged) {
+                            debouncedCodegen();
+                        }
+                    }),
+                    EditorView.theme({
+                        "&": { height: "100%" },
+                        ".cm-scroller": { overflow: "auto" },
+                    }),
+                ],
+            }),
+            parent: jsonInputRef,
+        });
+
+        outputView = new EditorView({
+            state: EditorState.create({
+                doc: "",
+                extensions: [
+                    oneDark,
+                    EditorState.readOnly.of(true),
+                    langCompartment.of([]),
+                    EditorView.theme({
+                        "&": { height: "100%" },
+                        ".cm-scroller": { overflow: "auto" },
+                    }),
+                ],
+            }),
+            parent: codeOutputRef,
+        });
+
+        // Set initial language
+        await updateOutputLanguage();
+    });
+
+    onCleanup(() => {
+        inputView?.destroy();
+        outputView?.destroy();
+    });
 
     return (
         <>
@@ -60,7 +165,7 @@ const JsonCodeGen: Component = () => {
                         <select
                             ref={(ele) => (langSelectRef = ele)}
                             id="lang-select"
-                            onchange={codegen}
+                            onchange={() => {updateOutputLanguage(); codegen();}}
                             class={styles.LangSelect}
                         >
                             <option value="java">Java</option>
@@ -70,19 +175,14 @@ const JsonCodeGen: Component = () => {
                 </div>
 
                 <div class={styles.Main}>
-                    <textarea
+                    <div
                         ref={(ele) => (jsonInputRef = ele)}
-                        oninput={debounce(codegen, 300)}
-                        class={styles.TextArea}
-                        placeholder="Paste your JSON here"
-                        spellcheck={false}
-                    ></textarea>
-                    <textarea
+                        class={styles.EditorContainer}
+                    ></div>
+                    <div
                         ref={(ele) => (codeOutputRef = ele)}
-                        class={styles.TextArea}
-                        readonly
-                        placeholder="Generated Code"
-                    ></textarea>
+                        class={styles.EditorContainer}
+                    ></div>
                 </div>
             </div>
         </>
