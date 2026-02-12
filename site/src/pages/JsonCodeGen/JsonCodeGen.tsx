@@ -86,8 +86,8 @@ const JsonCodeGen: Component = () => {
     onMount(async () => {
         // Lazy load all CodeMirror dependencies in parallel
         const [
-            { EditorView, keymap },
-            { EditorState, Compartment },
+            { EditorView, keymap, placeholder },
+            { EditorState },
             { defaultKeymap, history, historyKeymap },
             { oneDark },
             jsonLang,
@@ -104,6 +104,7 @@ const JsonCodeGen: Component = () => {
                 doc: "",
                 extensions: [
                     oneDark,
+                    placeholder("Paste your JSON here..."),
                     history(),
                     keymap.of([...defaultKeymap, ...historyKeymap]),
                     jsonLang,
@@ -126,6 +127,7 @@ const JsonCodeGen: Component = () => {
                 doc: "",
                 extensions: [
                     oneDark,
+                    placeholder("Generated code will appear here..."),
                     EditorState.readOnly.of(true),
                     langCompartment.of([]),
                     EditorView.theme({
