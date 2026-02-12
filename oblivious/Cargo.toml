@@ -1,6 +1,11 @@
 [package]
 name = "oblivious"
-edition = "2024"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
 
 [dependencies]
 base64 = { workspace = true }
