@@ -1,11 +1,12 @@
 /* @refresh reload */
+import { lazy } from 'solid-js';
 import { render } from 'solid-js/web';
 import { Route, HashRouter } from '@solidjs/router';
 import { MetaProvider } from '@solidjs/meta';
 
 import './index.css';
 import Home from './pages/Home';
-import JsonCodeGen from './pages/JsonCodeGen';
+const JsonCodeGen = lazy(() => import('./pages/JsonCodeGen'));
 
 const root = document.getElementById('root');
 
