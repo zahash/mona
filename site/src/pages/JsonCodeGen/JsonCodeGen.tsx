@@ -86,16 +86,20 @@ const JsonCodeGen: Component = () => {
     onMount(async () => {
         // Lazy load all CodeMirror dependencies in parallel
         const [
-            { EditorView, keymap, placeholder },
+            { EditorView, keymap, placeholder, lineNumbers },
             { EditorState },
             { defaultKeymap, history, historyKeymap },
             { oneDark },
+            { indentOnInput, bracketMatching },
+            { closeBrackets, autocompletion, completionKeymap },
             jsonLang,
         ] = await Promise.all([
             import("@codemirror/view"),
             import("@codemirror/state"),
             import("@codemirror/commands"),
             import("@codemirror/theme-one-dark"),
+            import("@codemirror/language"),
+            import("@codemirror/autocomplete"),
             languageLoaders.json(),
         ]);
 
@@ -104,10 +108,16 @@ const JsonCodeGen: Component = () => {
                 doc: "",
                 extensions: [
                     oneDark,
+                    lineNumbers(),
+                    EditorView.lineWrapping,
                     placeholder("Paste your JSON here..."),
                     history(),
-                    keymap.of([...defaultKeymap, ...historyKeymap]),
+                    keymap.of([...defaultKeymap, ...historyKeymap, ...completionKeymap]),
                     jsonLang,
+                    indentOnInput(),
+                    bracketMatching(),
+                    closeBrackets(),
+                    autocompletion(),
                     EditorView.updateListener.of((update: any) => {
                         if (update.docChanged) {
                             debouncedCodegen();
@@ -127,6 +137,8 @@ const JsonCodeGen: Component = () => {
                 doc: "",
                 extensions: [
                     oneDark,
+                    lineNumbers(),
+                    EditorView.lineWrapping,
                     placeholder("Generated code will appear here..."),
                     EditorState.readOnly.of(true),
                     langCompartment.of([]),
