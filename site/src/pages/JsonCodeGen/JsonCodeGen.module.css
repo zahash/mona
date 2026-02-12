@@ -40,3 +40,9 @@
 .EditorContainer :global(.cm-editor) {
     height: 100%;
 }
+
+@media (max-width: 768px) {
+    .Main {
+        flex-direction: column;
+    }
+}
