@@ -1,0 +1,41 @@
+.Home {
+    background-color: var(--dark);
+    color: var(--light);
+
+    font-size: 1.5em;
+
+    text-align: center;
+    min-height: 100vh;
+
+    padding: 0 5%;
+}
+
+.Header {
+    margin-bottom: 5%;
+}
+
+.Name {
+    font-size: clamp(1em, 15vw, 4em);
+}
+
+.Link {
+    margin: 1%;
+}
+
+.Img {
+    max-height: 300px;
+    width: auto;
+    max-width: 100%;
+
+    margin: 1%;
+
+    border-radius: 20px;
+    border: 2px solid var(--link);
+    transition: transform 0.05s ease;
+}
+
+.Img:hover {
+    border: 2px solid var(--link-hover);
+    box-shadow: 0 0 10px var(--link-hover);
+    transform: scale(1.02);
+}

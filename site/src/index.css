@@ -1,0 +1,39 @@
+:root {
+  --dark: #05050a;
+  --light: #cccccc;
+  --link: #4682b4;
+  --link-hover: #87ceeb;
+
+  font-family: system-ui;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: monospace;
+}
+
+.link {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--link-hover);
+  filter: drop-shadow(0 0 1px);
+}
+
+.link::before {
+  content: '[';
+}
+
+.link::after {
+  content: ']';
+}
