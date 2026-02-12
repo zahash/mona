@@ -15,9 +15,25 @@ const JsonCodeGen: Component = () => {
         const lang = langSelectRef.value;
         const json = jsonInputRef.value;
 
-        PluginManager.get(
-            `https://zahash.github.io/jsoncodegen-${lang}-wasm32-wasip1.wasm`,
-        )
+        /**
+         * PATH RESOLUTION STRATEGY:
+         * 
+         * This uses a domain-relative path (`/filename.wasm`), which makes the setup 
+         * environment-agnostic provided that the site and the WASM binaries are 
+         * deployed to the same domain (co-located at the root).
+         * 
+         * 1. Production:
+         *    Works on any domain (e.g., zahash.github.io) as long as the .wasm files 
+         *    are tracked/placed at the root of that same domain.
+         * 
+         * 2. Development (localhost):
+         *    The Vite dev server intercepts this request. See `site/vite.config.ts` for the 
+         *    'serve-wasm-from-target' middleware which maps this URL to the local Rust 
+         *    `target/wasm32-wasip1/wasm/` directory and strips the architecture suffix.
+         */
+        const url = `/jsoncodegen-${lang}-wasm32-wasip1.wasm`;
+
+        PluginManager.get(url)
             .then((plugin) => (codeOutputRef.value = plugin.run(json)))
             .catch((e) => {
                 console.error(e);
