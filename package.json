@@ -10,10 +10,13 @@
     "private": true,
     "workspaces": [
         "jsoncodegen/polyfill",
-        "auth/ui"
+        "auth/ui",
+        "site"
     ],
     "devDependencies": {
         "@types/node": "^25.2.0",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "vite": "^7.3.0",
+        "vite-plugin-solid": "^2.11.6"
     }
 }

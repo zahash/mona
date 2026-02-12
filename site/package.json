@@ -1,24 +1,21 @@
 {
-  "name": "vite-template-solid",
+  "name": "@zahash/site",
   "version": "0.0.0",
-  "description": "",
+  "description": "Zahash's personal site",
+  "license": "Apache-2.0",
+  "private": true,
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^22.5.4",
-    "solid-devtools": "^0.34.4",
-    "typescript": "^5.3.3",
-    "vite": "^7.3.0",
-    "vite-plugin-solid": "^2.8.2"
-  },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.14.3",
-    "solid-js": "^1.8.11"
+    "@solidjs/router": "^0.15.3",
+    "solid-js": "^1.9.5"
+  },
+  "devDependencies": {
+    "solid-devtools": "^0.34.4"
   }
 }

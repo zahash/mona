@@ -1,9 +1,11 @@
-.env
+*.env
+.env.*
 
 pkg/
 dist/
 
 .DS_Store/
+Thumbs.db
 
 # rust
 target/
