@@ -20,7 +20,8 @@
 
 .LangSelect {
     cursor: pointer;
-    font-size: large;
+    font-size: x-large;
+    padding: 0.5rem;
 }
 
 .Main {
