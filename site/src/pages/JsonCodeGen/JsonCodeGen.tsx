@@ -168,7 +168,7 @@ const JsonCodeGen: Component = () => {
                     <h3>
                         JSON Code Generator{" "}
                         <a
-                            href="https://github.com/zahash/jsoncodegen"
+                            href="https://github.com/zahash/mona/tree/main/jsoncodegen"
                             class="link"
                         >
                             GitHub
