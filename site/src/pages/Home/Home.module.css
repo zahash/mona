@@ -37,6 +37,7 @@
     border: 2px solid var(--link);
     transition: transform 0.05s ease;
 
+    font-family: monospace;
     cursor: pointer;
 }
 

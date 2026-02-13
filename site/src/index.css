@@ -1,8 +1,8 @@
 :root {
-  --dark: #05050a;
-  --light: #F5F5F5;
-  --link: #4682b4;
-  --link-hover: #87ceeb;
+  --dark: #000000;
+  --light: #ffffff;
+  --link: #a1a1a1;
+  --link-hover: #ffffff;
 
   font-family: system-ui;
 
