@@ -74,7 +74,7 @@ const JsonCodeGen: Component = () => {
 
     const debouncedCodegen = debounce(codegen, 300);
 
-    const updateOutputLanguage = async () => {
+    const reconfigureLanguageExtension = async () => {
         if (!outputView) return;
         const lang = langSelectRef.value;
         const extension = await languageLoaders[lang]();
@@ -152,7 +152,7 @@ const JsonCodeGen: Component = () => {
         });
 
         // Set initial language
-        await updateOutputLanguage();
+        await reconfigureLanguageExtension();
     });
 
     onCleanup(() => {
@@ -179,7 +179,7 @@ const JsonCodeGen: Component = () => {
                         <select
                             ref={(ele) => (langSelectRef = ele)}
                             id="lang-select"
-                            onchange={() => {updateOutputLanguage(); codegen();}}
+                            onchange={() => {reconfigureLanguageExtension(); codegen();}}
                             class={styles.LangSelect}
                         >
                             <option value="java">Java</option>
