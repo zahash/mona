@@ -18,4 +18,4 @@ jobs:
           toolchain: stable
 
       - name: Run Tests
-        run: cargo test --workspace -- --nocapture
+        run: cargo test --workspace --all-features --no-fail-fast -- --nocapture
