@@ -22,19 +22,25 @@
     margin: 1%;
 }
 
-.Img {
-    max-height: 300px;
-    width: auto;
+.ProjectLink {
+    color: var(--light);
+}
+
+.Ascii {
+    display: inline-block;
     max-width: 100%;
 
     margin: 1%;
+    padding: 1.5rem;
 
     border-radius: 20px;
     border: 2px solid var(--link);
     transition: transform 0.05s ease;
+
+    cursor: pointer;
 }
 
-.Img:hover {
+.Ascii:hover {
     border: 2px solid var(--link-hover);
     box-shadow: 0 0 10px var(--link-hover);
     transform: scale(1.02);
