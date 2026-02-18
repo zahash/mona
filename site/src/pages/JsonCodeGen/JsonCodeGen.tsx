@@ -2,7 +2,7 @@ import { Component, onMount, onCleanup } from "solid-js";
 import { Title } from "@solidjs/meta";
 
 import debounce from "@/lib/debounce";
-import { PluginManager } from "./jsoncodegen-wasm32-wasip1";
+import { PluginManager } from "@zahash/jsoncodegen.polyfill";
 
 import styles from "./JsonCodeGen.module.css";
 import { EditorView } from "codemirror";
