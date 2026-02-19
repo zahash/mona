@@ -7,6 +7,7 @@ import { MetaProvider } from '@solidjs/meta';
 import './index.css';
 import Home from './pages/Home';
 const JsonCodeGen = lazy(() => import('./pages/JsonCodeGen'));
+const LeetCodeTracker = lazy(() => import('./pages/LeetCodeTracker'));
 
 const root = document.getElementById('root');
 
@@ -21,6 +22,7 @@ render(() => (
     <HashRouter>
       <Route path="/" component={Home} />
       <Route path="/jsoncodegen" component={JsonCodeGen} />
+      <Route path="/leetcode-tracker" component={LeetCodeTracker} />
     </HashRouter>
   </MetaProvider>
 ), root!);

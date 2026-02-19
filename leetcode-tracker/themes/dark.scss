@@ -1,0 +1,25 @@
+@use './core' as *;
+
+:root, [data-theme="dark"] {
+  --lt-color-bg-app: #0d1117;
+  --lt-color-bg-panel: #161b22;
+  --lt-color-bg-node: #161b22;
+  --lt-color-bg-node-completed: #0f1e13;
+  --lt-color-bg-node-locked: #0d1117;
+  
+  --lt-color-border: #30363d;
+  --lt-color-border-subtle: rgba(255, 255, 255, 0.1);
+  
+  --lt-color-text-primary: #c9d1d9;
+  --lt-color-text-secondary: #8b949e;
+  
+  --lt-color-accent: #58a6ff;
+  --lt-color-success: #238636;
+  --lt-color-warning: #d29922;
+  --lt-color-error: #da3633;
+  
+  --lt-color-bg-badge: rgba(255, 255, 255, 0.05);
+  --lt-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+@include lt-structure;

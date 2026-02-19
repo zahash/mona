@@ -9,8 +9,13 @@
     "author": "zahash <zahash.z@gmail.com>",
     "private": true,
     "workspaces": [
-        "jsoncodegen/polyfill",
         "auth/ui",
+        "jsoncodegen/polyfill",
+        "leetcode-tracker/adapter/solid",
+        "leetcode-tracker/core",
+        "leetcode-tracker/layout/grid",
+        "leetcode-tracker/layout/layered",
+        "leetcode-tracker/themes",
         "site"
     ],
     "devDependencies": {

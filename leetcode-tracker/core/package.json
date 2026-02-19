@@ -1,0 +1,7 @@
+{
+  "name": "@zahash/leetcode-tracker.core",
+  "description": "LeetCode Tracker Core",
+  "license": "Apache-2.0",
+  "type": "module",
+  "private": true
+}

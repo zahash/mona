@@ -1,0 +1,10 @@
+{
+  "name": "@zahash/leetcode-tracker.layout.layered",
+  "description": "LeetCode Tracker Layered Layout",
+  "license": "Apache-2.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@zahash/leetcode-tracker.core": "*"
+  }
+}

@@ -12,6 +12,7 @@ const links = [
 
 const projects = [
   { name: "jsoncodegen", link: "/jsoncodegen" },
+  { name: "leetcode-tracker", link: "/leetcode-tracker" },
   { name: "utf8.c", link: "https://github.com/zahash/utf8.c" },
   { name: "quarantine", link: "https://github.com/zahash/quarantine" },
   { name: "reactivate", link: "https://github.com/zahash/reactivate" },

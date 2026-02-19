@@ -19,9 +19,15 @@
     "@solidjs/router": "^0.15.3",
     "codemirror": "^6.0.2",
     "solid-js": "^1.9.5",
-    "@zahash/jsoncodegen.polyfill": "*"
+    "@zahash/jsoncodegen.polyfill": "*",
+    "@zahash/leetcode-tracker.adapter.solid": "*",
+    "@zahash/leetcode-tracker.core": "*",
+    "@zahash/leetcode-tracker.layout.grid": "*",
+    "@zahash/leetcode-tracker.layout.layered": "*",
+    "@zahash/leetcode-tracker.themes": "*"
   },
   "devDependencies": {
+    "sass": "^1.91.0",
     "solid-devtools": "^0.34.4"
   }
 }

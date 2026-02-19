@@ -1,0 +1,165 @@
+/* Container Layout */
+.Container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header & Brand */
+.Header {
+  height: 72px;
+  padding: 0 1.5rem;
+  background: var(--lt-color-bg-panel);
+  border-bottom: 1px solid var(--lt-color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.Brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.BrandTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lt-color-text-primary);
+}
+
+.BrandSubtitle {
+  font-size: 0.75rem;
+  color: var(--lt-color-accent);
+  font-family: monospace;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+/* Toolbar & Controls */
+.Toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+}
+
+.ToolGroup {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.Label {
+  font-size: 0.75rem;
+  color: var(--lt-color-text-secondary);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.Separator {
+  width: 1px;
+  height: 24px;
+  background: var(--lt-color-border);
+}
+
+.StatsBadge {
+  background: #21262d;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-family: monospace;
+  border: 1px solid var(--lt-color-border);
+  color: var(--lt-color-success);
+  font-weight: bold;
+}
+
+/* Buttons */
+.Button {
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  border: 1px solid var(--lt-color-border);
+  background: var(--lt-color-bg-app);
+  color: var(--lt-color-text-primary);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Button:hover {
+  filter: brightness(1.1);
+}
+
+.Button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ButtonPrimary {
+  border-color: var(--lt-color-success);
+  color: #fff;
+  background: var(--lt-color-success);
+}
+
+.ButtonDanger {
+  border-color: var(--lt-color-error);
+  color: var(--lt-color-error);
+  background: transparent;
+}
+
+.ButtonDanger:hover {
+  background: rgba(218, 54, 51, 0.1);
+}
+
+/* Viewport Area */
+.Viewport {
+  flex: 1;
+  position: relative;
+  /* Ensure it doesn't collapse */
+  min-height: 0; 
+}
+
+.GraphSurface {
+  position: relative;
+  margin-top: 50px;
+  min-width: 100%;
+  /* Engine calculates height, logic handles the rest */
+}
+
+/* Empty State */
+.EmptyState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--lt-color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.EmptyIcon {
+  font-size: 3rem;
+}
+
+.EmptyTitle {
+  color: var(--lt-color-text-primary);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.UploadHeroButton {
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 10px 24px;
+}

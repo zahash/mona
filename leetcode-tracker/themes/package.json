@@ -1,0 +1,13 @@
+{
+  "name": "@zahash/leetcode-tracker.themes",
+  "description": "LeetCode Tracker Themes",
+  "license": "Apache-2.0",
+  "private": true,
+  "exports": {
+    "./dark": "./dark.scss",
+    "./light": "./light.scss"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
+  }
+}

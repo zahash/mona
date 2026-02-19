@@ -1,0 +1,9 @@
+{
+  "name": "@zahash/leetcode-tracker.layout.grid",
+  "description": "LeetCode Tracker Grid Layout",
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "@zahash/leetcode-tracker.core": "*"
+  }
+}
