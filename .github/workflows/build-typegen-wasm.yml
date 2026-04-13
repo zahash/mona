@@ -1,4 +1,4 @@
-name: Build CodeGen WASM Plugin
+name: Build Code Generation WASM Plugin
 
 # Manual trigger from the GitHub UI
 on:
@@ -26,16 +26,16 @@ jobs:
         run: rustup target add wasm32-wasip1
 
       - name: Run Tests
-        run: cargo test --package jsoncodegen-${{ github.event.inputs.lang }} -- --nocapture
+        run: cargo test --package typegen-${{ github.event.inputs.lang }} -- --nocapture
 
       - name: Build wasm32-wasip1
-        run: cargo build --package jsoncodegen-${{ github.event.inputs.lang }} --profile wasm --target wasm32-wasip1
+        run: cargo build --package typegen-${{ github.event.inputs.lang }} --profile wasm --target wasm32-wasip1
 
       - name: Rename binary
-        run: mv target/wasm32-wasip1/wasm/jsoncodegen-${{ github.event.inputs.lang }}.wasm jsoncodegen-${{ github.event.inputs.lang }}-wasm32-wasip1.wasm
+        run: mv target/wasm32-wasip1/wasm/typegen-${{ github.event.inputs.lang }}.wasm typegen-${{ github.event.inputs.lang }}-wasm32-wasip1.wasm
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jsoncodegen-${{ github.event.inputs.lang }}-wasm32-wasip1
-          path: jsoncodegen-${{ github.event.inputs.lang }}-wasm32-wasip1.wasm
+          name: typegen-${{ github.event.inputs.lang }}-wasm32-wasip1
+          path: typegen-${{ github.event.inputs.lang }}-wasm32-wasip1.wasm

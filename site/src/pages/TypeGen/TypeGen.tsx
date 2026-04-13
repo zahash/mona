@@ -2,7 +2,7 @@ import { Component, onMount, onCleanup } from "solid-js";
 import { Title } from "@solidjs/meta";
 
 import debounce from "@/lib/debounce";
-import { PluginManager } from "./typegen-wasm32-wasip1";
+import { PluginManager } from "@zahash/typegen.polyfill";
 
 import styles from "./TypeGen.module.css";
 import { EditorView } from "codemirror";

@@ -23,7 +23,7 @@ jobs:
           toolchain: stable
 
       - name: Run Tests
-        run: cargo test --package jsoncodegen-cli -- --nocapture
+        run: cargo test --package typegen-cli -- --nocapture
 
   build-linux-x86_64:
     name: Build (Linux x86_64)
@@ -43,7 +43,7 @@ jobs:
         run: rustup target add x86_64-unknown-linux-gnu
 
       - name: Build x86_64-unknown-linux-gnu
-        run: cargo build --package jsoncodegen-cli --profile cli --target x86_64-unknown-linux-gnu
+        run: cargo build --package typegen-cli --profile cli --target x86_64-unknown-linux-gnu
 
       - name: Rename Binary
         run: mv target/x86_64-unknown-linux-gnu/cli/jcg jcg-x86_64-unknown-linux-gnu
@@ -75,7 +75,7 @@ jobs:
         run: rustup target add aarch64-unknown-linux-gnu
 
       - name: Build aarch64-unknown-linux-gnu
-        run: cargo build --package jsoncodegen-cli --profile cli --target aarch64-unknown-linux-gnu
+        run: cargo build --package typegen-cli --profile cli --target aarch64-unknown-linux-gnu
 
       - name: Rename Binary
         run: mv target/aarch64-unknown-linux-gnu/cli/jcg jcg-aarch64-unknown-linux-gnu
@@ -107,7 +107,7 @@ jobs:
         run: rustup target add x86_64-pc-windows-msvc
 
       - name: Build x86_64-pc-windows-msvc
-        run: cargo build --package jsoncodegen-cli --profile cli --target x86_64-pc-windows-msvc
+        run: cargo build --package typegen-cli --profile cli --target x86_64-pc-windows-msvc
 
       - name: Rename Binary
         run: move target/x86_64-pc-windows-msvc/cli/jcg.exe jcg-x86_64-pc-windows-msvc.exe
@@ -139,7 +139,7 @@ jobs:
         run: rustup target add i686-pc-windows-msvc
 
       - name: Build i686-pc-windows-msvc
-        run: cargo build --package jsoncodegen-cli --profile cli --target i686-pc-windows-msvc
+        run: cargo build --package typegen-cli --profile cli --target i686-pc-windows-msvc
 
       - name: Rename Binary
         run: move target/i686-pc-windows-msvc/cli/jcg.exe jcg-i686-pc-windows-msvc.exe
@@ -171,7 +171,7 @@ jobs:
         run: rustup target add aarch64-pc-windows-msvc
 
       - name: Build aarch64-pc-windows-msvc
-        run: cargo build --package jsoncodegen-cli --profile cli --target aarch64-pc-windows-msvc
+        run: cargo build --package typegen-cli --profile cli --target aarch64-pc-windows-msvc
 
       - name: Rename Binary
         run: move target/aarch64-pc-windows-msvc/cli/jcg.exe jcg-aarch64-pc-windows-msvc.exe
@@ -203,7 +203,7 @@ jobs:
         run: rustup target add x86_64-apple-darwin
 
       - name: Build x86_64-apple-darwin
-        run: cargo build --package jsoncodegen-cli --profile cli --target x86_64-apple-darwin
+        run: cargo build --package typegen-cli --profile cli --target x86_64-apple-darwin
 
       - name: Rename Binary
         run: mv target/x86_64-apple-darwin/cli/jcg jcg-x86_64-apple-darwin
@@ -235,7 +235,7 @@ jobs:
         run: rustup target add aarch64-apple-darwin
 
       - name: Build aarch64-apple-darwin
-        run: cargo build --package jsoncodegen-cli --profile cli --target aarch64-apple-darwin
+        run: cargo build --package typegen-cli --profile cli --target aarch64-apple-darwin
 
       - name: Rename Binary
         run: mv target/aarch64-apple-darwin/cli/jcg jcg-aarch64-apple-darwin

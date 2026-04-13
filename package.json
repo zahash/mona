@@ -10,7 +10,6 @@
     "private": true,
     "workspaces": [
         "auth/ui",
-        "jsoncodegen/polyfill",
         "leetcode-tracker/adapter/solid",
         "leetcode-tracker/core",
         "leetcode-tracker/layout/grid",
