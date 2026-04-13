@@ -21,15 +21,15 @@ export default defineConfig({
       name: 'serve-wasm-from-target',
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
-          // Check if the request is for one of our jsoncodegen WASM plugins
-          if (req.url && req.url.includes('jsoncodegen-') && req.url.endsWith('.wasm')) {
+          // Check if the request is for one of our typegen WASM plugins
+          if (req.url && req.url.includes('typegen-') && req.url.endsWith('.wasm')) {
             /**
              * URL TRANSFORMATION:
-             * Production URL: /jsoncodegen-java-wasm32-wasip1.wasm
-             * Local File:     ../../target/wasm32-wasip1/wasm/jsoncodegen-java.wasm
+             * Production URL: /typegen-java-wasm32-wasip1.wasm
+             * Local File:     ../../target/wasm32-wasip1/wasm/typegen-java.wasm
              * 
              * We strip the '-wasm32-wasip1' architecture suffix because the Rust
-             * compiler (cargo) outputs the filename as 'jsoncodegen-<lang>.wasm' 
+             * compiler (cargo) outputs the filename as 'typegen-<lang>.wasm' 
              * inside the architecture-specific target folder.
              */
             const fileName = path.basename(req.url).replace('-wasm32-wasip1', '');

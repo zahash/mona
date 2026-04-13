@@ -1,0 +1,22 @@
+[package]
+name = "typegen-java"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+convert_case = { workspace = true }
+serde_json = { workspace = true, features = ["std"] }
+unicode-general-category = { workspace = true }
+
+typegen = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true, features = ["std"] }
+tokio = { workspace = true, features = ["macros", "process", "rt-multi-thread"] }
+
+typegen-test-macro = { workspace = true }
+typegen-test-utils = { workspace = true }

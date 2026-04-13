@@ -12,11 +12,11 @@ A complete web application with a Rust backend (using Axum and SQLite) and a Sol
 - **Frontend**: SolidJS, Vite, TypeScript
 - **WASM**: Shared logic compiled from Rust to WebAssembly.
 
-### 2. [JSON CodeGen](./jsoncodegen)
+### 2. [TypeGen](./typegen)
 A versatile code generation toolset that generates high-quality source code from JSON samples and schemas.
-- **CLI (`jcg`)**: A Rust-based CLI that orchestrates the code generation.
+- **CLI (`tg`)**: A Rust-based CLI that orchestrates the code generation.
 - **WASM Generators**: Language-specific generators (Rust, Java) compiled to WASM for portable execution.
-- **Test Data**: An extensive [collection of real-world JSON/YAML/XML samples](./jsoncodegen/test-data) used for verification.
+- **Test Data**: An extensive [collection of real-world JSON/YAML/XML samples](./typegen/test-data) used for verification.
 
 ### 3. Services & Infrastructure
 - **[Gateway](./gateway)**: An API gateway and service registry.
@@ -42,7 +42,7 @@ cargo build
 Specific components can be built using `-p`:
 
 ```sh
-cargo build -p jsoncodegen-cli
+cargo build -p typegen-cli
 ```
 
 ### JavaScript Workspace
@@ -60,14 +60,14 @@ To run a script in a specific package, use the `-w` (workspace) flag:
 npm run dev -w @zahash/auth
 
 # Run tests for the polyfill
-npm test -w @zahash/jsoncodegen.polyfill
+npm test -w @zahash/typegen.polyfill
 ```
 
 ## Documentation
 
 Detailed instructions for each component can be found in their respective directories:
 - [Fullstack Setup](./fullstack/README.md)
-- [JSON CodeGen Guide](./jsoncodegen/README.md)
+- [TypeGen Guide](./typegen/README.md)
 
 ## License
 

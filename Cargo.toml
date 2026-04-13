@@ -23,14 +23,14 @@ members = [
 
     "iota",
 
-    "jsoncodegen/cli",
-    "jsoncodegen/telemetry",
+    "typegen/cli",
+    "typegen/telemetry",
 
-    "jsoncodegen/java",
-    "jsoncodegen/rust",
-    "jsoncodegen/core",
-    "jsoncodegen/test-macro",
-    "jsoncodegen/test-utils",
+    "typegen/java",
+    "typegen/rust",
+    "typegen/core",
+    "typegen/test-macro",
+    "typegen/test-utils",
 
     "oblivious",
 
@@ -113,13 +113,13 @@ error-response = { path = "error-response" }
 file-serve = { path = "file-serve" }
 gateway = { path = "gateway" }
 iota = { path = "iota" }
-jsoncodegen-cli = { path = "jsoncodegen/cli" }
-jsoncodegen-telemetry = { path = "jsoncodegen/telemetry" }
-jsoncodegen-java = { path = "jsoncodegen/java" }
-jsoncodegen-rust = { path = "jsoncodegen/rust" }
-jsoncodegen = { path = "jsoncodegen/core" }
-jsoncodegen-test-macro = { path = "jsoncodegen/test-macro" }
-jsoncodegen-test-utils = { path = "jsoncodegen/test-utils" }
+typegen-cli = { path = "typegen/cli" }
+typegen-telemetry = { path = "typegen/telemetry" }
+typegen-java = { path = "typegen/java" }
+typegen-rust = { path = "typegen/rust" }
+typegen = { path = "typegen/core" }
+typegen-test-macro = { path = "typegen/test-macro" }
+typegen-test-utils = { path = "typegen/test-utils" }
 oblivious = { path = "oblivious" }
 seed = { path = "seed" }
 signature = { path = "signature" }
@@ -146,8 +146,8 @@ opt-level = "z"
 # df -h                                   # check available space
 # sudo mount -o remount,size=10G /tmp     # resize /tmp to have 10G
 
-# cargo build -p jsoncodegen-cli --profile cli
-# cargo build -p jsoncodegen-{lang} --profile wasm --target wasm32-wasip1
+# cargo build -p typegen-cli --profile cli
+# cargo build -p typegen-{lang} --profile wasm --target wasm32-wasip1
 
 # run JS polyfill tests. list of wasm files served by `file-serve` is listed at "/"
 # cargo run --bin file-serve target/wasm32-wasip1/wasm/*.wasm --port 7357
