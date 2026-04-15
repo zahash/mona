@@ -19,6 +19,7 @@ jobs:
 
       - name: Setup auth database
         run: |
+          cargo install sqlx-cli;
           export DATABASE_URL="sqlite:///tmp/data.db";
           sqlx database setup --source auth/server/migrations;
 
