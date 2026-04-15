@@ -17,5 +17,10 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Setup auth database
+        run: |
+          export DATABASE_URL="sqlite:///tmp/data.db";
+          sqlx database setup --source auth/server/migrations;
+
       - name: Run Tests
         run: cargo test --workspace --all-features --no-fail-fast -- --nocapture
