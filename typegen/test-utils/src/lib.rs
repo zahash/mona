@@ -77,7 +77,17 @@ where
     const CNT_OUTPUT: &str = "/output.json";
     const CNT_SCRIPT: &str = "/script.sh";
 
-    let mut command = Command::new("docker");
+    let container_engine = ["docker", "podman"]
+        .into_iter()
+        .find(|&engine| {
+            std::process::Command::new(engine)
+                .arg("--version")
+                .output()
+                .is_ok_and(|output| output.status.success())
+        })
+        .expect("Neither docker nor podman is installed");
+
+    let mut command = Command::new(container_engine);
 
     #[rustfmt::skip]
     command
