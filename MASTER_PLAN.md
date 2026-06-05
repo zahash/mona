@@ -185,3 +185,11 @@ If a TypeId has multiple candidates, we prefer the one with the highest "quality
 *This plan is the authoritative guide for the project. Every change must be reasoned against these architectural pillars.*
 *Total Lines Estimated for Implementation: 100,000+ across all crates.*
 *Document Revision: 22.0 (The Final Engineering Singularity - Universal Technical Bible - Omega Point - Total Architectural Awareness - Final Unbundled Vision - Immutable Design Law - Technical Apotheosis - The unbundled Truth - The Absolute Standard)*
+
+
+## NOTE:
+NEVER RUN BOTH THE JAVA AND RUST TESTS AT ONCE!! RUN THEM ONE AFTER THE OTHER.
+also run them using only one thread otherwise the system will hang.
+
+cargo test -p typegen-rust -- --test-threads=1
+cargo test -p typegen-java -- --test-threads=1
